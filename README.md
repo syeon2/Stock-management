@@ -12,11 +12,12 @@
 
 ### 🌱 필요 기술 스택
 for Application : Java 11, Spring Boot(2.7.12), MyBatis
-for Database : MySQL
+<br />
+for Database : MySQL, Redis
 
 ### 🌱 프로젝트 ERD
-<img src="https://wkblog-images.s3.ap-northeast-2.amazonaws.com/project/stock-management/stock-management-erd.png" width="600" />
+<img src="https://github.com/f-lab-edu/Stock-management/assets/71717303/b1659337-12bd-421f-9aeb-822403413315" width="800" />
 
 
 ### 🌱 프로젝트 설계
-<img src="https://wkblog-images.s3.ap-northeast-2.amazonaws.com/project/stock-management/stock-management-architecture.jpeg" width="600" />
+<img src="https://github.com/f-lab-edu/Stock-management/assets/71717303/178fe334-9d9e-4acf-a839-6971475e1171" width="800" />
