@@ -1,6 +1,39 @@
 spring:
+  profiles:
+    default: local
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:mapper/**/*.xml
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: local
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/stockmanagement
     username: root
     password: tndusdl11
+
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: test
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/teststockmanagement
+    username: root
+    password: tndusdl11
+
+  sql:
+    init:
+      mode: always
