@@ -1,11 +1,9 @@
 package project.stockmanagement.region.dao.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-@AllArgsConstructor
 public class Region {
 
 	private Integer id;
@@ -13,6 +11,11 @@ public class Region {
 
 	@Builder
 	private Region(String name) {
+		this.name = name;
+	}
+
+	public Region(Integer id, String name) {
+		this.id = id;
 		this.name = name;
 	}
 }

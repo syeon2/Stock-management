@@ -1,7 +1,5 @@
 package project.stockmanagement.region.service.request;
 
-import java.sql.Timestamp;
-
 import lombok.Builder;
 import lombok.Getter;
 import project.stockmanagement.region.dao.domain.Region;
@@ -16,7 +14,7 @@ public class RegionCreateServiceRequest {
 		this.name = name;
 	}
 
-	public Region toDomain(Timestamp currentDateTime) {
+	public Region toDomain() {
 		return Region.builder()
 			.name(name)
 			.build();
