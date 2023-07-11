@@ -4,10 +4,12 @@ import static org.assertj.core.api.Assertions.*;
 
 import java.util.List;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ActiveProfiles;
 
 import project.stockmanagement.region.dao.RegionRepository;
@@ -25,8 +27,17 @@ class RegionServiceTest {
 	@Autowired
 	private RegionService regionService;
 
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
+
+	@AfterEach
+	void after() {
+		jdbcTemplate.execute("delete from region");
+		jdbcTemplate.execute("alter table region auto_increment = 1");
+	}
+
 	@Test
-	@DisplayName("지역을 생성합니다.")
+	@DisplayName("지역을 생성하는 요청 테스트")
 	void createRegion() {
 		// given
 		Region region = createRegion("Seoul");
@@ -42,7 +53,7 @@ class RegionServiceTest {
 		// then
 		assertThat(regionResponse)
 			.extracting("id", "name")
-			.contains(1, "Busan");
+			.contains(2, "Busan");
 
 		List<Region> regions = regionRepository.findAll();
 		assertThat(regions).hasSize(2)
@@ -50,6 +61,31 @@ class RegionServiceTest {
 			.containsExactlyInAnyOrder(
 				tuple(1, "Seoul"),
 				tuple(2, "Busan")
+			);
+	}
+
+	@Test
+	@DisplayName("전체 지역을 조회하는 요청 테스트")
+	void getRegions() {
+		// given
+		Region region1 = createRegion("Seoul");
+		Region region2 = createRegion("Busan");
+		Region region3 = createRegion("Daejeon");
+
+		regionRepository.save(region1);
+		regionRepository.save(region2);
+		regionRepository.save(region3);
+
+		// when
+		List<RegionResponse> regionResponses = regionService.getRegions();
+
+		// then
+		assertThat(regionResponses).hasSize(3)
+			.extracting("id", "name")
+			.containsExactlyInAnyOrder(
+				tuple(1, "Seoul"),
+				tuple(2, "Busan"),
+				tuple(3, "Daejeon")
 			);
 	}
 
