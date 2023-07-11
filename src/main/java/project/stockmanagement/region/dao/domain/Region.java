@@ -1,7 +1,5 @@
 package project.stockmanagement.region.dao.domain;
 
-import java.sql.Timestamp;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,13 +10,9 @@ public class Region {
 
 	private Integer id;
 	private final String name;
-	private Timestamp createdAt;
-	private Timestamp updatedAt;
 
 	@Builder
-	private Region(String name, Timestamp createdAt, Timestamp updatedAt) {
+	private Region(String name) {
 		this.name = name;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
 	}
 }
