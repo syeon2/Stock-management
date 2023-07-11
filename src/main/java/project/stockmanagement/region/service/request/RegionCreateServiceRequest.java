@@ -19,8 +19,6 @@ public class RegionCreateServiceRequest {
 	public Region toDomain(Timestamp currentDateTime) {
 		return Region.builder()
 			.name(name)
-			.createdAt(currentDateTime)
-			.updatedAt(currentDateTime)
 			.build();
 	}
 }

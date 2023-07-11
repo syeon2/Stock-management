@@ -11,7 +11,7 @@ import project.stockmanagement.region.service.request.RegionCreateServiceRequest
 @NoArgsConstructor
 public class RegionCreateRequest {
 
-	@NotBlank(message = "지역 이름을 입력해주세요.")
+	@NotBlank(message = "지역 이름은 공백을 허용하지 않습니다.")
 	private String name;
 
 	@Builder

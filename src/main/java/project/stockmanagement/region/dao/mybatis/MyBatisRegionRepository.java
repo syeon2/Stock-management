@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
+import project.stockmanagement.common.basewrapper.CombinedEntity;
 import project.stockmanagement.region.dao.RegionRepository;
 import project.stockmanagement.region.dao.domain.Region;
 
@@ -16,9 +17,10 @@ public class MyBatisRegionRepository implements RegionRepository {
 
 	@Override
 	public Region save(Region region) {
-		regionMapper.save(region);
+		CombinedEntity<Region> createData = CombinedEntity.toCreateData(region);
+		regionMapper.save(createData);
 
-		return region;
+		return createData.toEntity();
 	}
 
 	@Override
