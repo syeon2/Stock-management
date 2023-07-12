@@ -43,8 +43,8 @@ public class MyBatisEmployeeRepository implements EmployeeRepository {
 
 	@Override
 	public Long update(Long id, Employee updateEmployee) {
-		Employee employee = findById(id).toUpdateEntity(updateEmployee);
-		CombinedEntity<Employee> updateData = CombinedEntity.toUpdateData(employee);
+		CombinedEntity<Employee> updateData = CombinedEntity.toUpdateData(updateEmployee);
+		System.out.println(updateData.getEntity().getPhone());
 		employeeMapper.update(id, updateData);
 
 		return updateData.getEntity().getId();

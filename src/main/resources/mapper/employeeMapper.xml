@@ -24,13 +24,29 @@
 
     <update id="update">
         update employee
-        set name                 = #{updateParam.entity.name},
-            phone                = #{updateParam.entity.phone},
-            employee_status      = #{updateParam.entity.employeeStatus},
-            item_packaging_count = #{updateParam.entity.itemPackagingCount},
-            working_day          = #{updateParam.entity.workingDay},
-            center_id            = #{updateParam.entity.centerId},
-            updated_at           = #{updateParam.updatedAt}
+        <set>
+            <if test="updateParam.entity.name != null">
+                name = #{updateParam.entity.name},
+            </if>
+            <if test="updateParam.entity.phone != null">
+                phone = #{updateParam.entity.phone},
+            </if>
+            <if test="updateParam.entity.employeeStatus != null">
+                employee_status = #{updateParam.entity.employeeStatus},
+            </if>
+            <if test="updateParam.entity.itemPackagingCount != null">
+                item_packaging_count = #{updateParam.entity.itemPackagingCount},
+            </if>
+            <if test="updateParam.entity.workingDay != null">
+                working_day = #{updateParam.entity.workingDay},
+            </if>
+            <if test="updateParam.entity.centerId != null">
+                center_id = #{updateParam.entity.centerId},
+            </if>
+            <if test="updateParam.updatedAt != null">
+                updated_at = #{updateParam.updatedAt}
+            </if>
+        </set>
         where id = #{id}
     </update>
 

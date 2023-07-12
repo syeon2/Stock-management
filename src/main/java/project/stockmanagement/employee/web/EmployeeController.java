@@ -16,6 +16,7 @@ import project.stockmanagement.employee.service.EmployeeService;
 import project.stockmanagement.employee.service.response.EmployeeFindResponse;
 import project.stockmanagement.employee.service.response.EmployeeResponse;
 import project.stockmanagement.employee.web.request.EmployeeCreateRequest;
+import project.stockmanagement.employee.web.request.EmployeeUpdateRequest;
 
 @RestController
 @RequiredArgsConstructor
@@ -42,5 +43,10 @@ public class EmployeeController {
 		List<EmployeeResponse> employeeResponses = employeeService.findEmployeesByCenterId(id);
 
 		return ApiResult.onSuccess(employeeResponses);
+	}
+
+	@PostMapping("/api/v1/employee/{id}")
+	public Long updateEmployee(@PathVariable Long id, @RequestBody EmployeeUpdateRequest request) {
+		return employeeService.updateEmployee(id, request.toUpdateEntity());
 	}
 }
