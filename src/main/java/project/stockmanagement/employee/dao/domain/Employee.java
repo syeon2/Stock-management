@@ -41,7 +41,6 @@ public class Employee {
 
 	public Employee toUpdateEntity(Employee updateEmployee) {
 		return Employee.builder()
-			.id(this.id)
 			.name(updateEmployee.name)
 			.phone(updateEmployee.phone)
 			.centerId(updateEmployee.centerId)

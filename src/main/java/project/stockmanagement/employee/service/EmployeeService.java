@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import project.stockmanagement.employee.dao.EmployeeRepository;
 import project.stockmanagement.employee.dao.domain.Employee;
 import project.stockmanagement.employee.service.request.EmployeeCreateServiceRequest;
+import project.stockmanagement.employee.service.request.EmployeeUpdateServiceRequest;
 import project.stockmanagement.employee.service.response.EmployeeFindResponse;
 import project.stockmanagement.employee.service.response.EmployeeResponse;
 
@@ -39,7 +40,7 @@ public class EmployeeService {
 			.collect(Collectors.toList());
 	}
 
-	public Long updateEmployee(Long id, Employee updateEmployee) {
-		return employeeRepository.update(id, updateEmployee);
+	public Long updateEmployee(Long id, EmployeeUpdateServiceRequest updateEmployee) {
+		return employeeRepository.update(id, updateEmployee.toDomain());
 	}
 }

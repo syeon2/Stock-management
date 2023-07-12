@@ -17,6 +17,7 @@ import project.stockmanagement.employee.dao.EmployeeRepository;
 import project.stockmanagement.employee.dao.domain.Employee;
 import project.stockmanagement.employee.dao.domain.EmployeeStatus;
 import project.stockmanagement.employee.service.request.EmployeeCreateServiceRequest;
+import project.stockmanagement.employee.service.request.EmployeeUpdateServiceRequest;
 import project.stockmanagement.employee.service.response.EmployeeFindResponse;
 import project.stockmanagement.employee.service.response.EmployeeResponse;
 
@@ -114,10 +115,17 @@ class EmployeeServiceTest {
 
 		Long id = savedEmployee.getId();
 		LocalDate updateDay = LocalDate.now();
-		Employee updateEmployee = createEmployee("memberB", "000-000-000", EmployeeStatus.WAITING, 0, updateDay, 2);
+		EmployeeUpdateServiceRequest updateServiceRequest = EmployeeUpdateServiceRequest.builder()
+			.name("memberB")
+			.phone("000-000-000")
+			.employeeStatus(EmployeeStatus.WORKING)
+			.itemPackagingCount(0)
+			.workingDay(workingDay)
+			.centerId(2)
+			.build();
 
 		// when
-		Long updateEmployeeId = employeeService.updateEmployee(id, updateEmployee);
+		Long updateEmployeeId = employeeService.updateEmployee(id, updateServiceRequest);
 
 		// then
 		assertThat(updateEmployeeId).isEqualTo(id);

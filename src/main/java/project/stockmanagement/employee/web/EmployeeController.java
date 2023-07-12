@@ -46,7 +46,7 @@ public class EmployeeController {
 	}
 
 	@PostMapping("/api/v1/employee/{id}")
-	public Long updateEmployee(@PathVariable Long id, @RequestBody EmployeeUpdateRequest request) {
-		return employeeService.updateEmployee(id, request.toUpdateEntity());
+	public Long updateEmployee(@PathVariable Long id, @Valid @RequestBody EmployeeUpdateRequest request) {
+		return employeeService.updateEmployee(id, request.toServiceRequest());
 	}
 }

@@ -39,7 +39,7 @@ class MyBatisEmployeeRepositoryTest {
 	public void saveEmployee() {
 		// given
 		LocalDate workingDay = LocalDate.now();
-		Employee employee = createEmployee("Suyeon", "000-000-0000", EmployeeStatus.WAITING, 0, workingDay, 1);
+		Employee employee = createEmployee("Suyeon", "0000000000", EmployeeStatus.WAITING, 0, workingDay, 1);
 
 		// when
 		Employee savedEmployee = employeeRepository.save(employee);
@@ -47,7 +47,7 @@ class MyBatisEmployeeRepositoryTest {
 		// then
 		assertThat(savedEmployee)
 			.extracting("id", "name", "phone", "employeeStatus", "itemPackagingCount", "workingDay", "centerId")
-			.contains(1, "Suyeon", "000-000-0000", EmployeeStatus.WAITING, 0, workingDay, 1);
+			.contains(1, "Suyeon", "0000000000", EmployeeStatus.WAITING, 0, workingDay, 1);
 	}
 
 	@Test
@@ -55,7 +55,7 @@ class MyBatisEmployeeRepositoryTest {
 	void findEmployeeById() {
 		// given
 		LocalDate workingDay = LocalDate.now();
-		Employee employee = createEmployee("memberA", "000-000-0000", EmployeeStatus.WAITING, 0, workingDay, 1);
+		Employee employee = createEmployee("memberA", "0000000000", EmployeeStatus.WAITING, 0, workingDay, 1);
 		employeeRepository.save(employee);
 
 		// when
@@ -64,7 +64,7 @@ class MyBatisEmployeeRepositoryTest {
 		// then
 		assertThat(findEmployee)
 			.extracting("id", "name", "phone", "employeeStatus", "itemPackagingCount", "workingDay", "centerId")
-			.contains(1L, "memberA", "000-000-0000", EmployeeStatus.WAITING, 0, workingDay, 1);
+			.contains(1L, "memberA", "0000000000", EmployeeStatus.WAITING, 0, workingDay, 1);
 	}
 
 	@Test
@@ -72,9 +72,9 @@ class MyBatisEmployeeRepositoryTest {
 	void findEmployeeByCenterId() {
 		// given
 		LocalDate workingDay = LocalDate.now();
-		Employee employee1 = createEmployee("memberA", "000-000-0000", EmployeeStatus.WAITING, 0, workingDay, 1);
-		Employee employee2 = createEmployee("memberB", "000-000-0000", EmployeeStatus.WAITING, 0, workingDay, 1);
-		Employee employee3 = createEmployee("memberC", "000-000-0000", EmployeeStatus.WAITING, 0, workingDay, 1);
+		Employee employee1 = createEmployee("memberA", "0000000000", EmployeeStatus.WAITING, 0, workingDay, 1);
+		Employee employee2 = createEmployee("memberB", "0000000000", EmployeeStatus.WAITING, 0, workingDay, 1);
+		Employee employee3 = createEmployee("memberC", "0000000000", EmployeeStatus.WAITING, 0, workingDay, 1);
 
 		employeeRepository.save(employee1);
 		employeeRepository.save(employee2);
@@ -87,9 +87,9 @@ class MyBatisEmployeeRepositoryTest {
 		assertThat(employees).hasSize(3)
 			.extracting("id", "name", "phone", "employeeStatus", "itemPackagingCount", "workingDay", "centerId")
 			.containsExactlyInAnyOrder(
-				tuple(1L, "memberA", "000-000-0000", EmployeeStatus.WAITING, 0, workingDay, 1),
-				tuple(2L, "memberB", "000-000-0000", EmployeeStatus.WAITING, 0, workingDay, 1),
-				tuple(3L, "memberC", "000-000-0000", EmployeeStatus.WAITING, 0, workingDay, 1)
+				tuple(1L, "memberA", "0000000000", EmployeeStatus.WAITING, 0, workingDay, 1),
+				tuple(2L, "memberB", "0000000000", EmployeeStatus.WAITING, 0, workingDay, 1),
+				tuple(3L, "memberC", "0000000000", EmployeeStatus.WAITING, 0, workingDay, 1)
 			);
 	}
 
@@ -98,12 +98,12 @@ class MyBatisEmployeeRepositoryTest {
 	void updateEmployee() {
 		// given
 		LocalDate workingDay = LocalDate.now();
-		Employee employee = createEmployee("memberA", "000-000-000", EmployeeStatus.WAITING, 0, workingDay, 1);
+		Employee employee = createEmployee("memberA", "0000000000", EmployeeStatus.WAITING, 0, workingDay, 1);
 		Employee savedEmployee = employeeRepository.save(employee);
 		Long id = savedEmployee.getId();
 
 		String changedName = "memberB";
-		Employee updateEmployee = createEmployee(changedName, "000-000-000", EmployeeStatus.WAITING, 0, workingDay, 1);
+		Employee updateEmployee = createEmployee(changedName, "0000000000", EmployeeStatus.WAITING, 0, workingDay, 1);
 
 		// when
 		Long update = employeeRepository.update(id, updateEmployee);
@@ -112,7 +112,7 @@ class MyBatisEmployeeRepositoryTest {
 		Employee findEmployee = employeeRepository.findById(id);
 		assertThat(findEmployee)
 			.extracting("id", "name", "phone", "employeeStatus", "itemPackagingCount", "workingDay", "centerId")
-			.contains(1L, changedName, "000-000-000", EmployeeStatus.WAITING, 0, workingDay, 1);
+			.contains(1L, changedName, "0000000000", EmployeeStatus.WAITING, 0, workingDay, 1);
 	}
 
 	@Test
@@ -120,7 +120,7 @@ class MyBatisEmployeeRepositoryTest {
 	void delete() {
 		// given
 		LocalDate workingDay = LocalDate.now();
-		Employee employee = createEmployee("memberA", "000-000-000", EmployeeStatus.WAITING, 0, workingDay, 1);
+		Employee employee = createEmployee("memberA", "0000000000", EmployeeStatus.WAITING, 0, workingDay, 1);
 		employeeRepository.save(employee);
 
 		Employee findEmployee = employeeRepository.findById(1L);
