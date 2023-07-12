@@ -23,7 +23,7 @@ import project.stockmanagement.attendance.service.response.AttendanceResponse;
 import project.stockmanagement.attendance.web.request.AttendanceCreateRequest;
 import project.stockmanagement.attendance.web.request.AttendanceUpdateWorkStatusRequest;
 
-@WebMvcTest(controllers = AttendanceController.class)
+@WebMvcTest(controllers = {AttendanceForCenterController.class, AttendanceForEmployeeController.class})
 class AttendanceControllerTest {
 
 	@Autowired
