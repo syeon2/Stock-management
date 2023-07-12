@@ -12,9 +12,9 @@ class TimeGeneratorTest {
 	@Test
 	@DisplayName("호출 시 새로운 인스턴스를 생성하여 각각 현재 시간을 반환합니다.")
 	void getCurrentTime() throws InterruptedException {
-		Timestamp caseA = TimeGenerator.currentTime();
+		Timestamp caseA = TimeGenerator.currentDateTime();
 		Thread.sleep(100);
-		Timestamp caseB = TimeGenerator.currentTime();
+		Timestamp caseB = TimeGenerator.currentDateTime();
 
 		assertThat(caseA).isNotSameAs(caseB);
 	}
