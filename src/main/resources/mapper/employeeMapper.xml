@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="project.stockmanagement.employee.dao.mybatis.EmployeeMapper">
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="entity.id" keyColumn="id">
+        insert into employee (name, phone, employee_status, item_packaging_count, working_day, center_id, created_at,
+                              updated_at)
+        values (#{entity.name}, #{entity.phone}, #{entity.employeeStatus}, #{entity.itemPackagingCount},
+                #{entity.workingDay}, #{entity.centerId}, #{createdAt}, #{updatedAt})
+    </insert>
+
+    <select id="findById">
+        select id, name, phone, employee_status, item_packaging_count, working_day, center_id
+        from employee
+        where id = #{id}
+    </select>
+
+    <select id="findByCenterId">
+        select id, name, phone, employee_status, item_packaging_count, working_day, center_id
+        from employee
+        where center_id = #{centerId}
+    </select>
+
+    <update id="update">
+        update employee
+        set name                 = #{updateParam.entity.name},
+            phone                = #{updateParam.entity.phone},
+            employee_status      = #{updateParam.entity.employeeStatus},
+            item_packaging_count = #{updateParam.entity.itemPackagingCount},
+            working_day          = #{updateParam.entity.workingDay},
+            center_id            = #{updateParam.entity.centerId},
+            updated_at           = #{updateParam.updatedAt}
+        where id = #{id}
+    </update>
+
+    <delete id="delete">
+        delete
+        from employee
+        where id = #{id}
+    </delete>
+
+</mapper>
