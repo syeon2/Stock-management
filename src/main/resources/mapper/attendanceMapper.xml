@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="project.stockmanagement.attendance.dao.mybatis.AttendanceMapper">
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into attendance (work_status, employee_id, center_id, created_at, updated_at)
+        values (#{workStatus}, #{employeeId}, #{centerId}, #{createdAt}, #{updatedAt})
+    </insert>
+
+    <select id="findById">
+        select *
+        from attendance
+        where id = #{id}
+    </select>
+
+    <select id="findByEmployeeId">
+        select *
+        from attendance
+        where employee_id = #{id}
+    </select>
+
+    <select id="findByCenterId">
+        select *
+        from attendance
+        where center_id = #{id}
+    </select>
+
+    <update id="update">
+        update attendance
+        set work_status = #{updateParam.workStatus},
+            updated_at  = #{updateParam.updatedAt}
+        where id = #{id}
+    </update>
+
+    <delete id="delete">
+        delete
+        from attendance
+        where id = #{id}
+    </delete>
+
+</mapper>

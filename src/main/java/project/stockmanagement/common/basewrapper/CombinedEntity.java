@@ -25,15 +25,15 @@ public class CombinedEntity<T> {
 	public static <T> CombinedEntity<T> toCreateData(T entity) {
 		return CombinedEntity.<T>builder()
 			.entity(entity)
-			.createdAt(TimeGenerator.currentTime())
-			.updatedAt(TimeGenerator.currentTime())
+			.createdAt(TimeGenerator.currentDateTime())
+			.updatedAt(TimeGenerator.currentDateTime())
 			.build();
 	}
 
 	public static <T> CombinedEntity<T> toUpdateData(T entity) {
 		return CombinedEntity.<T>builder()
 			.entity(entity)
-			.updatedAt(TimeGenerator.currentTime())
+			.updatedAt(TimeGenerator.currentDateTime())
 			.build();
 	}
 
