@@ -18,8 +18,9 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import project.stockmanagement.employee.dao.domain.EmployeeStatus;
 import project.stockmanagement.employee.service.EmployeeService;
-import project.stockmanagement.employee.service.response.EmployeeResponse;
+import project.stockmanagement.employee.service.response.EmployeeFindResponse;
 import project.stockmanagement.employee.web.request.EmployeeCreateRequest;
 import project.stockmanagement.employee.web.request.EmployeeScheduleRequest;
 
@@ -205,11 +206,13 @@ class EmployeeControllerTest {
 	void findEmployee() throws Exception {
 		// given
 		long memberId = 1;
-		EmployeeResponse employeeResponse = EmployeeResponse.builder()
+		EmployeeFindResponse employeeResponse = EmployeeFindResponse.builder()
 			.id(memberId)
 			.name("memberA")
 			.phone("0000000000")
 			.workingDay(LocalDate.now())
+			.employeeStatus(EmployeeStatus.WAITING)
+			.itemPackagingCount(0)
 			.centerId(1)
 			.build();
 
@@ -230,7 +233,7 @@ class EmployeeControllerTest {
 	void findEmployeeByCenter() throws Exception {
 		// given
 		long memberId = 1;
-		
+
 		when(employeeService.findEmployeesByCenterId(1)).thenReturn(List.of());
 
 		// when  // then

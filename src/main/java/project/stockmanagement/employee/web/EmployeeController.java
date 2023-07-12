@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 import project.stockmanagement.common.basewrapper.ApiResult;
 import project.stockmanagement.employee.service.EmployeeService;
+import project.stockmanagement.employee.service.response.EmployeeFindResponse;
 import project.stockmanagement.employee.service.response.EmployeeResponse;
 import project.stockmanagement.employee.web.request.EmployeeCreateRequest;
 
@@ -30,8 +31,8 @@ public class EmployeeController {
 	}
 
 	@GetMapping("/api/v1/employee/{id}")
-	public ApiResult<EmployeeResponse> findEmployee(@PathVariable Long id) {
-		EmployeeResponse employeeResponse = employeeService.findEmployee(id);
+	public ApiResult<EmployeeFindResponse> findEmployee(@PathVariable Long id) {
+		EmployeeFindResponse employeeResponse = employeeService.findEmployee(id);
 
 		return ApiResult.onSuccess(employeeResponse);
 	}

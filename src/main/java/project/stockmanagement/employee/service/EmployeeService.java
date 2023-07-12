@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import project.stockmanagement.employee.dao.EmployeeRepository;
 import project.stockmanagement.employee.dao.domain.Employee;
 import project.stockmanagement.employee.service.request.EmployeeCreateServiceRequest;
+import project.stockmanagement.employee.service.response.EmployeeFindResponse;
 import project.stockmanagement.employee.service.response.EmployeeResponse;
 
 @Service
@@ -24,10 +25,10 @@ public class EmployeeService {
 		return EmployeeResponse.of(savedEmployee);
 	}
 
-	public EmployeeResponse findEmployee(Long id) {
+	public EmployeeFindResponse findEmployee(Long id) {
 		Employee employee = employeeRepository.findById(id);
 
-		return EmployeeResponse.of(employee);
+		return EmployeeFindResponse.of(employee);
 	}
 
 	public List<EmployeeResponse> findEmployeesByCenterId(Integer centerId) {

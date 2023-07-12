@@ -17,6 +17,7 @@ import project.stockmanagement.employee.dao.EmployeeRepository;
 import project.stockmanagement.employee.dao.domain.Employee;
 import project.stockmanagement.employee.dao.domain.EmployeeStatus;
 import project.stockmanagement.employee.service.request.EmployeeCreateServiceRequest;
+import project.stockmanagement.employee.service.response.EmployeeFindResponse;
 import project.stockmanagement.employee.service.response.EmployeeResponse;
 
 @ActiveProfiles("test")
@@ -68,12 +69,12 @@ class EmployeeServiceTest {
 		employeeRepository.save(employee);
 
 		// when
-		EmployeeResponse employeeResponse = employeeService.findEmployee(1L);
+		EmployeeFindResponse employeeResponse = employeeService.findEmployee(1L);
 
 		// then
 		assertThat(employeeResponse)
-			.extracting("id", "name", "phone", "workingDay", "centerId")
-			.contains(1L, "memberA", "000-000-000", workingDay, 1);
+			.extracting("id", "name", "phone", "workingDay", "employeeStatus", "itemPackagingCount", "centerId")
+			.contains(1L, "memberA", "000-000-000", workingDay, EmployeeStatus.WAITING, 0, 1);
 	}
 
 	@Test
