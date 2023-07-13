@@ -3,6 +3,7 @@ drop table center;
 drop table attendance;
 drop table item_category;
 drop table employee;
+drop table item;
 
 create table teststockmanagement.region
 (
@@ -51,4 +52,14 @@ create table teststockmanagement.employee
     center_id            integer unsigned not null,
     created_at           timestamp        not null,
     updated_at           timestamp        not null
+);
+
+create table teststockmanagement.item
+(
+    id               bigint unsigned primary key auto_increment,
+    name             varchar(255)     not null,
+    quantity         integer unsigned not null,
+    item_category_id integer unsigned not null,
+    created_at       timestamp        not null,
+    updated_at       timestamp        not null
 );
