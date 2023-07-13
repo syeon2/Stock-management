@@ -19,7 +19,7 @@ for Database : MySQL, Redis
 
 ### 🌱 프로젝트 ERD
 
-<img src="https://github.com/syeon2/Stock-management/assets/71717303/fad6fe10-3879-41f7-acf8-590d9b25ec65" width="800" />
+<img src="https://github.com/syeon2/Stock-management/assets/71717303/98b6d05a-3c30-41ed-ab53-64f63c394394" width="800" />
 
 ### 🌱 프로젝트 설계
 
