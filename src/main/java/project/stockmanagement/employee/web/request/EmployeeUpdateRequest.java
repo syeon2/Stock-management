@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import lombok.Builder;
@@ -24,7 +23,6 @@ public class EmployeeUpdateRequest {
 	@Pattern(regexp = "[0-9]{10,11}", message = "10 ~ 11자리의 숫자만 입력 가능합니다.")
 	private String phone;
 
-	@NotNull(message = "근로 상태를 입력해주세요.")
 	private EmployeeStatus employeeStatus;
 
 	@Min(message = "최소 재고 처리량은 0입니다.", value = 0)
@@ -33,7 +31,6 @@ public class EmployeeUpdateRequest {
 	@Valid
 	private EmployeeScheduleRequest schedule;
 
-	@NotNull(message = "센터 아이디는 필수 입니다.")
 	private Integer centerId;
 
 	@Builder
