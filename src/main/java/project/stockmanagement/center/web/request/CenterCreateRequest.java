@@ -5,11 +5,14 @@ import javax.validation.constraints.NotNull;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import project.stockmanagement.center.service.request.CenterCreateServiceRequest;
 
 @Getter
+@NoArgsConstructor
 public class CenterCreateRequest {
 
+	@NotNull
 	@NotBlank(message = "물류 센터 이름은 공백을 허용하지 않습니다.")
 	private String name;
 

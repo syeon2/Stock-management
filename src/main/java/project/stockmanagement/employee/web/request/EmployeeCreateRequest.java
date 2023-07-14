@@ -9,22 +9,26 @@ import javax.validation.constraints.Pattern;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import project.stockmanagement.employee.service.request.EmployeeCreateServiceRequest;
 
 @Getter
+@NoArgsConstructor
 public class EmployeeCreateRequest {
 
+	@NotNull
 	@NotBlank(message = "근로자 이름은 공백을 허용하지 않습니다.")
-	private final String name;
+	private String name;
 
+	@NotNull
 	@Pattern(regexp = "[0-9]{10,11}", message = "10 ~ 11자리의 숫자만 입력 가능합니다.")
-	private final String phone;
+	private String phone;
 
 	@Valid
-	private final EmployeeScheduleRequest schedule;
+	private EmployeeScheduleRequest schedule;
 
 	@NotNull(message = "센터 아이디는 필수 입니다.")
-	private final Integer centerId;
+	private Integer centerId;
 
 	@Builder
 	private EmployeeCreateRequest(String name, String phone, EmployeeScheduleRequest schedule, Integer centerId) {
