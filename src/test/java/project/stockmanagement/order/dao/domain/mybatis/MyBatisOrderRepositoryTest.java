@@ -39,12 +39,10 @@ class MyBatisOrderRepositoryTest {
 		Order order = createOrder(OrderStatus.WAITING, 0, 1, null);
 
 		// when
-		Order savedOrder = orderRepository.save(order);
+		Long savedId = orderRepository.save(order);
 
 		// then
-		assertThat(savedOrder)
-			.extracting("id", "orderStatus", "totalCount", "centerId", "employeeId")
-			.contains(1L, OrderStatus.WAITING, 0, 1, null);
+		assertThat(savedId).isEqualTo(1L);
 	}
 
 	@Test
@@ -52,9 +50,7 @@ class MyBatisOrderRepositoryTest {
 	void findById() {
 		// given
 		Order order = createOrder(OrderStatus.WAITING, 0, 1, null);
-		Order savedOrder = orderRepository.save(order);
-
-		Long id = savedOrder.getId();
+		Long id = orderRepository.save(order);
 
 		// when
 		Order findOrder = orderRepository.findById(id);
@@ -70,7 +66,7 @@ class MyBatisOrderRepositoryTest {
 	void update() {
 		// given
 		Order order = createOrder(OrderStatus.WAITING, 0, 1, null);
-		Long id = orderRepository.save(order).getId();
+		Long id = orderRepository.save(order);
 
 		Order updateOrder = createOrder(OrderStatus.PROCESS, 5, 1, 2L);
 
@@ -91,7 +87,7 @@ class MyBatisOrderRepositoryTest {
 	void delete() {
 		// given
 		Order order = createOrder(OrderStatus.WAITING, 0, 1, null);
-		Long id = orderRepository.save(order).getId();
+		Long id = orderRepository.save(order);
 
 		assertThat(orderRepository.findById(id).getId()).isEqualTo(id);
 		// when

@@ -17,11 +17,11 @@ public class MyBatisOrderRepository implements OrderRepository {
 	private final OrderMapper orderMapper;
 
 	@Override
-	public Order save(Order orders) {
+	public Long save(Order orders) {
 		CombinedEntity<Order> createOrders = CombinedEntity.toCreateData(orders);
 		orderMapper.save(createOrders);
 
-		return createOrders.getEntity();
+		return createOrders.getEntity().getId();
 	}
 
 	@Override

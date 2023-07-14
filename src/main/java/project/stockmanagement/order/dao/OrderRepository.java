@@ -4,7 +4,7 @@ import project.stockmanagement.order.dao.domain.Order;
 
 public interface OrderRepository {
 
-	Order save(Order orders);
+	Long save(Order orders);
 
 	Order findById(Long id);
 
