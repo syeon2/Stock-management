@@ -23,4 +23,4 @@ for Database : MySQL, Redis
 
 ### 🌱 프로젝트 설계
 
-<img src="https://github.com/f-lab-edu/Stock-management/assets/71717303/178fe334-9d9e-4acf-a839-6971475e1171" width="800" />
+<img src="https://github.com/syeon2/Stock-management/assets/71717303/0488760e-9884-4a8c-a6bd-863e6bdf751d" width="800" />
