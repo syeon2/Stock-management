@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="project.stockmanagement.order.dao.mybatis.OrderDetailMapper">
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="entity.id" keyColumn="id">
+        insert into order_detail (name, count, order_id, item_id, created_at, updated_at)
+        values (#{entity.name}, #{entity.count}, #{entity.orderId}, #{entity.itemId}, #{createdAt}, #{updatedAt})
+    </insert>
+
+    <select id="findById">
+        select id, name, count, order_id, item_id
+        from order_detail
+        where id = #{id}
+    </select>
+
+    <select id="findByOrderId">
+        select id, name, count, order_id, item_id
+        from order_detail
+        where order_id = #{orderId}
+    </select>
+
+    <delete id="delete">
+        delete
+        from order_detail
+        where id = #{id}
+    </delete>
+</mapper>

@@ -1,4 +1,4 @@
-package project.stockmanagement.order.dao.domain.mybatis;
+package project.stockmanagement.order.dao.mybatis;
 
 import java.util.Optional;
 
