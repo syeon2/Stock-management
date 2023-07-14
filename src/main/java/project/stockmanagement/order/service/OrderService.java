@@ -13,7 +13,7 @@ import project.stockmanagement.order.dao.domain.Order;
 import project.stockmanagement.order.dao.domain.OrderDetail;
 import project.stockmanagement.order.dao.domain.OrderStatus;
 import project.stockmanagement.order.service.request.OrderCreateServiceRequest;
-import project.stockmanagement.order.service.request.OrderedItem;
+import project.stockmanagement.order.service.request.OrderItem;
 import project.stockmanagement.order.service.response.OrderResponse;
 
 @Service
@@ -57,8 +57,8 @@ public class OrderService {
 	}
 
 	private OrderResponse combineOrderAndOrderDetailsToOrderResponse(Order order, List<OrderDetail> orderDetails) {
-		List<OrderedItem> orderItems = orderDetails.stream()
-			.map(detail -> OrderedItem.builder()
+		List<OrderItem> orderItems = orderDetails.stream()
+			.map(detail -> OrderItem.builder()
 				.id(detail.getId())
 				.name(detail.getName())
 				.count(detail.getCount())

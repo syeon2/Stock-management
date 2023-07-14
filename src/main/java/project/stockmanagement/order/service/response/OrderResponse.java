@@ -5,7 +5,7 @@ import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
 import project.stockmanagement.order.dao.domain.OrderStatus;
-import project.stockmanagement.order.service.request.OrderedItem;
+import project.stockmanagement.order.service.request.OrderItem;
 
 @Getter
 public class OrderResponse {
@@ -14,11 +14,11 @@ public class OrderResponse {
 	private final Integer totalCount;
 	private final Integer centerId;
 	private final Long employeeId;
-	private final List<OrderedItem> orderedItems;
+	private final List<OrderItem> orderedItems;
 
 	@Builder
 	private OrderResponse(OrderStatus orderStatus, Integer totalCount, Integer centerId, Long employeeId,
-		List<OrderedItem> orderedItems) {
+		List<OrderItem> orderedItems) {
 		this.orderStatus = orderStatus;
 		this.totalCount = totalCount;
 		this.centerId = centerId;

@@ -12,11 +12,11 @@ import project.stockmanagement.order.dao.domain.OrderStatus;
 @Getter
 public class OrderCreateServiceRequest {
 
-	private final List<OrderedItem> orderedItems;
+	private final List<OrderItem> orderedItems;
 	private final Integer centerId;
 
 	@Builder
-	private OrderCreateServiceRequest(List<OrderedItem> orderedItems, Integer centerId) {
+	private OrderCreateServiceRequest(List<OrderItem> orderedItems, Integer centerId) {
 		this.orderedItems = orderedItems;
 		this.centerId = centerId;
 	}
@@ -24,7 +24,7 @@ public class OrderCreateServiceRequest {
 	public Order toOrderDomain(OrderStatus orderStatus) {
 
 		Integer totalCount = orderedItems.stream()
-			.mapToInt(OrderedItem::getCount)
+			.mapToInt(OrderItem::getCount)
 			.sum();
 
 		return Order.builder()

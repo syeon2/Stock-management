@@ -18,7 +18,7 @@ import project.stockmanagement.order.dao.domain.Order;
 import project.stockmanagement.order.dao.domain.OrderDetail;
 import project.stockmanagement.order.dao.domain.OrderStatus;
 import project.stockmanagement.order.service.request.OrderCreateServiceRequest;
-import project.stockmanagement.order.service.request.OrderedItem;
+import project.stockmanagement.order.service.request.OrderItem;
 import project.stockmanagement.order.service.response.OrderResponse;
 
 @ActiveProfiles("test")
@@ -51,8 +51,8 @@ class OrderServiceTest {
 		// given
 		long itemId1 = 1L;
 		long itemId2 = 2L;
-		OrderedItem orderedItem1 = createOrderedItem(itemId1, "itemA", 2);
-		OrderedItem orderedItem2 = createOrderedItem(itemId2, "itemB", 4);
+		OrderItem orderedItem1 = createOrderedItem(itemId1, "itemA", 2);
+		OrderItem orderedItem2 = createOrderedItem(itemId2, "itemB", 4);
 
 		OrderCreateServiceRequest request = OrderCreateServiceRequest.builder()
 			.orderedItems(List.of(orderedItem1, orderedItem2))
@@ -84,8 +84,8 @@ class OrderServiceTest {
 	@DisplayName("주문 내역을 조회합니다.")
 	void findOrderInfo() {
 		// given
-		OrderedItem orderedItem1 = createOrderedItem(1L, "itemA", 2);
-		OrderedItem orderedItem2 = createOrderedItem(2L, "itemB", 4);
+		OrderItem orderedItem1 = createOrderedItem(1L, "itemA", 2);
+		OrderItem orderedItem2 = createOrderedItem(2L, "itemB", 4);
 
 		OrderCreateServiceRequest request = OrderCreateServiceRequest.builder()
 			.orderedItems(List.of(orderedItem1, orderedItem2))
@@ -110,8 +110,8 @@ class OrderServiceTest {
 			);
 	}
 
-	private OrderedItem createOrderedItem(long id, String name, int count) {
-		return OrderedItem.builder()
+	private OrderItem createOrderedItem(long id, String name, int count) {
+		return OrderItem.builder()
 			.id(id)
 			.name(name)
 			.count(count)
