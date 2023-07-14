@@ -46,14 +46,14 @@ public class OrderService {
 
 	// TODO:: 재고 처리 기능 (Employee -> Orders Stock Count)
 
-	private void saveOrderDetailsToDB(OrderCreateServiceRequest request, Long orderId) {
-		List<OrderDetail> orderDetails = request.toOrderDetails(orderId);
-		orderDetails.forEach(orderDetailRepository::save);
-	}
-
 	private Long saveOrderEntityToDB(OrderCreateServiceRequest request) {
 		Order order = request.toOrderDomain(OrderStatus.WAITING);
 		return orderRepository.save(order);
+	}
+
+	private void saveOrderDetailsToDB(OrderCreateServiceRequest request, Long orderId) {
+		List<OrderDetail> orderDetails = request.toOrderDetails(orderId);
+		orderDetails.forEach(orderDetailRepository::save);
 	}
 
 	private OrderResponse combineOrderAndOrderDetailsToOrderResponse(Order order, List<OrderDetail> orderDetails) {
@@ -65,9 +65,13 @@ public class OrderService {
 				.build()
 			).collect(Collectors.toList());
 
+		Integer totalCount = orderDetails.stream()
+			.mapToInt(OrderDetail::getCount)
+			.sum();
+
 		return OrderResponse.builder()
 			.orderStatus(order.getOrderStatus())
-			.totalCount(orderDetails.size())
+			.totalCount(totalCount)
 			.centerId(order.getCenterId())
 			.employeeId(order.getEmployeeId())
 			.orderedItems(orderItems)

@@ -3,18 +3,23 @@ package project.stockmanagement.order.service.request;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import project.stockmanagement.order.dao.domain.Order;
 import project.stockmanagement.order.dao.domain.OrderDetail;
 import project.stockmanagement.order.dao.domain.OrderStatus;
 
 @Getter
-@RequiredArgsConstructor
 public class OrderCreateServiceRequest {
 
 	private final List<OrderedItem> orderedItems;
 	private final Integer centerId;
+
+	@Builder
+	private OrderCreateServiceRequest(List<OrderedItem> orderedItems, Integer centerId) {
+		this.orderedItems = orderedItems;
+		this.centerId = centerId;
+	}
 
 	public Order toOrderDomain(OrderStatus orderStatus) {
 
@@ -35,7 +40,7 @@ public class OrderCreateServiceRequest {
 				.name(item.getName())
 				.count(item.getCount())
 				.orderId(orderId)
-				.id(item.getId())
+				.itemId(item.getId())
 				.build()
 			).collect(Collectors.toList());
 	}
