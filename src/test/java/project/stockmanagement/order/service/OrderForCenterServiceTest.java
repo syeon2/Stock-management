@@ -23,7 +23,7 @@ import project.stockmanagement.order.service.response.OrderResponse;
 
 @ActiveProfiles("test")
 @SpringBootTest
-class OrderServiceTest {
+class OrderForCenterServiceTest {
 
 	@Autowired
 	private OrderToCenterService orderToCenterService;

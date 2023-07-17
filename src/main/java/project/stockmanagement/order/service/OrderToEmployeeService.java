@@ -19,10 +19,8 @@ public class OrderToEmployeeService {
 	private final RedisOrderLockRepository redisOrderLockRepository;
 
 	/**
-	 * 동시적으로 MySQL에서 WAITING Status 의 주문데이터를 조회하는 이슈를 Redis 분산락으로 처리
-	 *
+	 * 동시적으로 DB 에서 WAITING Status 의 주문데이터를 조회하는 이슈를 Redis 분산락으로 처리
 	 */
-
 	public OrderToEmployeeResponse dispatchWaitedOrderToEmployee(Long employeeId) {
 		Order waitingStatusOrder = orderRepository.findWaitingStatusOrder();
 		Long orderId = waitingStatusOrder.getId();
@@ -35,6 +33,6 @@ public class OrderToEmployeeService {
 		orderRepository.update(orderId,
 			waitingStatusOrder.toUpdateOrderWhenDispatchToEmployee(employeeId, OrderStatus.PROCESS));
 
-		return OrderToEmployeeResponse.of(orderDetailRepository.findByOrderId(orderId));
+		return OrderToEmployeeResponse.of(orderId, orderDetailRepository.findByOrderId(orderId));
 	}
 }

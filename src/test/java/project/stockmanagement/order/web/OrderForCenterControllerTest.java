@@ -24,7 +24,7 @@ import project.stockmanagement.order.service.response.OrderResponse;
 import project.stockmanagement.order.web.request.OrderCreateRequest;
 
 @WebMvcTest(controllers = OrderForCenterController.class)
-class OrderControllerTest {
+class OrderForCenterControllerTest {
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -52,7 +52,7 @@ class OrderControllerTest {
 
 		// when  // then
 		mockMvc.perform(
-				post("/api/v1/order")
+				post("/api/v1/center/order")
 					.content(objectMapper.writeValueAsString(request))
 					.contentType(MediaType.APPLICATION_JSON)
 			)
@@ -70,7 +70,7 @@ class OrderControllerTest {
 
 		// when  // then
 		mockMvc.perform(
-				post("/api/v1/order")
+				post("/api/v1/center/order")
 					.content(objectMapper.writeValueAsString(request))
 					.contentType(MediaType.APPLICATION_JSON)
 			)
@@ -90,7 +90,7 @@ class OrderControllerTest {
 
 		// when  // then
 		mockMvc.perform(
-				post("/api/v1/order")
+				post("/api/v1/center/order")
 					.content(objectMapper.writeValueAsString(request))
 					.contentType(MediaType.APPLICATION_JSON)
 			)
@@ -117,7 +117,7 @@ class OrderControllerTest {
 
 		// when  // then
 		mockMvc.perform(
-				get("/api/v1/order/" + id)
+				get("/api/v1/center/order/" + id)
 			)
 			.andDo(print())
 			.andExpect(status().isOk())

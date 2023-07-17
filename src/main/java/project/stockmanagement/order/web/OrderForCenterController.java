@@ -20,14 +20,14 @@ public class OrderForCenterController {
 
 	private final OrderToCenterService orderToCenterService;
 
-	@PostMapping("/api/v1/order")
+	@PostMapping("/api/v1/center/order")
 	public ApiResult<Long> createOrder(@Valid @RequestBody OrderCreateRequest request) {
 		Long orderedId = orderToCenterService.createOrder(request.toServiceRequest());
 
 		return ApiResult.onSuccess(orderedId);
 	}
 
-	@GetMapping("/api/v1/order/{orderId}")
+	@GetMapping("/api/v1/center/order/{orderId}")
 	public ApiResult<OrderResponse> findOrderInfo(@PathVariable Long orderId) {
 		OrderResponse orderResponse = orderToCenterService.findOrderInfo(orderId);
 
