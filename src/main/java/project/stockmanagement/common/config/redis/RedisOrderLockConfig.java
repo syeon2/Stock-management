@@ -1,4 +1,4 @@
-package project.stockmanagement.common.config;
+package project.stockmanagement.common.config.redis;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,10 +10,11 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
-@Configuration
-public class RedisOrderLockConfig {
+import lombok.RequiredArgsConstructor;
 
-	public static final String ORDER_DISPATCH_LOCK = "ORDER_DISPATCH_LOCK";
+@Configuration
+@RequiredArgsConstructor
+public class RedisOrderLockConfig {
 
 	@Value("${spring.redis.host}")
 	private String host;
