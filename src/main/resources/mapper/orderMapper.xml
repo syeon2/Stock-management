@@ -15,12 +15,6 @@
         where id = #{id}
     </select>
 
-    <select id="findWaitingStatusOrder">
-        select id, order_status, total_count, center_id, employee_id
-        from orders
-        where order_status = "WAITING" limit 1
-    </select>
-
     <update id="update">
         update orders
         <set>

@@ -99,11 +99,11 @@ class OrderToEmployeeServiceTest {
 
 		// when
 		Thread thread1 = new Thread(() -> {
-			OrderToEmployeeResponse orderToEmployeeResponse1 = orderToEmployeeService.dispatchWaitedOrderToEmployee(1L);
+			orderToEmployeeService.dispatchWaitedOrderToEmployee(1L);
 		});
 
 		Thread thread2 = new Thread(() -> {
-			OrderToEmployeeResponse orderToEmployeeResponse2 = orderToEmployeeService.dispatchWaitedOrderToEmployee(2L);
+			orderToEmployeeService.dispatchWaitedOrderToEmployee(2L);
 		});
 
 		thread1.start();
