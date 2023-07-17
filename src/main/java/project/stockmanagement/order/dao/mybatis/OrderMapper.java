@@ -15,6 +15,8 @@ public interface OrderMapper {
 
 	Optional<Order> findById(Long id);
 
+	Optional<Order> findWaitingStatusOrder();
+
 	void update(@Param("id") Long id, @Param("updateParam") CombinedEntity<Order> updateOrders);
 
 	void delete(Long id);

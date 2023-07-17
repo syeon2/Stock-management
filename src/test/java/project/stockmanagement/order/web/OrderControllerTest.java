@@ -18,12 +18,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import project.stockmanagement.order.dao.domain.OrderStatus;
-import project.stockmanagement.order.service.OrderService;
+import project.stockmanagement.order.service.OrderToCenterService;
 import project.stockmanagement.order.service.request.OrderItem;
 import project.stockmanagement.order.service.response.OrderResponse;
 import project.stockmanagement.order.web.request.OrderCreateRequest;
 
-@WebMvcTest(controllers = OrderController.class)
+@WebMvcTest(controllers = OrderForCenterController.class)
 class OrderControllerTest {
 
 	@Autowired
@@ -33,7 +33,7 @@ class OrderControllerTest {
 	private ObjectMapper objectMapper;
 
 	@MockBean
-	private OrderService orderService;
+	private OrderToCenterService orderToCenterService;
 
 	@Test
 	@DisplayName("주문을 요청하는 Http Request를 보냅니다.")
@@ -113,7 +113,7 @@ class OrderControllerTest {
 			.build();
 
 		long id = 1;
-		when(orderService.findOrderInfo(1L)).thenReturn(orderResponse);
+		when(orderToCenterService.findOrderInfo(1L)).thenReturn(orderResponse);
 
 		// when  // then
 		mockMvc.perform(

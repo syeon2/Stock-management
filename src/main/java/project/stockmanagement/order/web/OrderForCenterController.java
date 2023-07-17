@@ -10,26 +10,26 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
 import project.stockmanagement.common.basewrapper.ApiResult;
-import project.stockmanagement.order.service.OrderService;
+import project.stockmanagement.order.service.OrderToCenterService;
 import project.stockmanagement.order.service.response.OrderResponse;
 import project.stockmanagement.order.web.request.OrderCreateRequest;
 
 @RestController
 @RequiredArgsConstructor
-public class OrderController {
+public class OrderForCenterController {
 
-	private final OrderService orderService;
+	private final OrderToCenterService orderToCenterService;
 
 	@PostMapping("/api/v1/order")
 	public ApiResult<Long> createOrder(@Valid @RequestBody OrderCreateRequest request) {
-		Long orderedId = orderService.createOrder(request.toServiceRequest());
+		Long orderedId = orderToCenterService.createOrder(request.toServiceRequest());
 
 		return ApiResult.onSuccess(orderedId);
 	}
 
 	@GetMapping("/api/v1/order/{orderId}")
 	public ApiResult<OrderResponse> findOrderInfo(@PathVariable Long orderId) {
-		OrderResponse orderResponse = orderService.findOrderInfo(orderId);
+		OrderResponse orderResponse = orderToCenterService.findOrderInfo(orderId);
 
 		return ApiResult.onSuccess(orderResponse);
 	}

@@ -8,6 +8,8 @@ public interface OrderRepository {
 
 	Order findById(Long id);
 
+	Order findWaitingStatusOrder();
+
 	Long update(Long id, Order updateOrders);
 
 	void delete(Long id);

@@ -26,7 +26,7 @@ import project.stockmanagement.order.service.response.OrderResponse;
 class OrderServiceTest {
 
 	@Autowired
-	private OrderService orderService;
+	private OrderToCenterService orderToCenterService;
 
 	@Autowired
 	private OrderRepository orderRepository;
@@ -60,7 +60,7 @@ class OrderServiceTest {
 			.build();
 
 		// when
-		Long orderId = orderService.createOrder(request);
+		Long orderId = orderToCenterService.createOrder(request);
 
 		// then
 		assertThat(orderId).isEqualTo(1L);
@@ -92,10 +92,10 @@ class OrderServiceTest {
 			.centerId(1)
 			.build();
 
-		Long orderId = orderService.createOrder(request);
+		Long orderId = orderToCenterService.createOrder(request);
 
 		// when
-		OrderResponse orderInfo = orderService.findOrderInfo(orderId);
+		OrderResponse orderInfo = orderToCenterService.findOrderInfo(orderId);
 
 		// then
 		assertThat(orderInfo)

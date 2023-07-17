@@ -18,7 +18,7 @@ import project.stockmanagement.order.service.response.OrderResponse;
 
 @Service
 @RequiredArgsConstructor
-public class OrderService {
+public class OrderToCenterService {
 
 	private final OrderRepository orderRepository;
 	private final OrderDetailRepository orderDetailRepository;

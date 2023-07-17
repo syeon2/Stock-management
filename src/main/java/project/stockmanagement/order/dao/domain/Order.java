@@ -20,4 +20,14 @@ public class Order {
 		this.centerId = centerId;
 		this.employeeId = employeeId;
 	}
+
+	public Order toUpdateOrderWhenDispatchToEmployee(Long employeeId, OrderStatus orderStatus) {
+		return Order.builder()
+			.id(this.id)
+			.orderStatus(orderStatus)
+			.totalCount(this.totalCount)
+			.centerId(this.centerId)
+			.employeeId(employeeId)
+			.build();
+	}
 }

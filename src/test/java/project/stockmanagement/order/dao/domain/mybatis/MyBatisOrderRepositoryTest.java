@@ -62,6 +62,38 @@ class MyBatisOrderRepositoryTest {
 	}
 
 	@Test
+	@DisplayName("대기 중인 주문 건 1개를 조회합니다.")
+	void findWaitingStatusOrder() {
+		// given
+		Order order1 = createOrder(OrderStatus.WAITING, 0, 1, null);
+		Order order2 = createOrder(OrderStatus.PROCESS, 1, 2, null);
+		Order order3 = createOrder(OrderStatus.WAITING, 3, 2, null);
+		orderRepository.save(order1);
+		orderRepository.save(order2);
+		orderRepository.save(order3);
+
+		// when
+		Order waitingStatusOrder = orderRepository.findWaitingStatusOrder();
+
+		// then
+		assertThat(waitingStatusOrder)
+			.extracting("id", "orderStatus", "totalCount", "centerId", "employeeId")
+			.contains(1L, OrderStatus.WAITING, 0, 1, null);
+	}
+
+	@Test
+	@DisplayName("대기 중인 주문이 없다면 예외를 던집니다.")
+	void findWaitingStatusOrderWithoutData() {
+		// given
+		Order order = createOrder(OrderStatus.PROCESS, 0, 1, null);
+		orderRepository.save(order);
+
+		// when  // then
+		assertThatThrownBy(() -> orderRepository.findWaitingStatusOrder())
+			.isInstanceOf(NoSuchElementException.class);
+	}
+
+	@Test
 	@DisplayName("주문 내역을 수정합니다.")
 	void update() {
 		// given
