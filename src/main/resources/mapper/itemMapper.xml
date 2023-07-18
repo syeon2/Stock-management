@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="project.stockmanagement.item.dao.mybatis.ItemMapper">
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="entity.id" keyColumn="id">
+        insert into item (name, quantity, item_category_id, created_at, updated_at)
+        values (#{entity.name}, #{entity.quantity}, #{entity.itemCategoryId}, #{createdAt}, #{updatedAt})
+    </insert>
+
+    <select id="findById">
+        select id, name, quantity, item_category_id
+        from item
+        where id = #{id}
+    </select>
+
+    <select id="findByItemCategoryId">
+        select id, name, quantity, item_category_id
+        from item
+        where item_category_id = #{id}
+    </select>
+
+    <update id="update">
+        update item
+        <set>
+            <if test="updateParam.entity.name != null">
+                name = #{updateParam.entity.name},
+            </if>
+            <if test="updateParam.entity.quantity != null">
+                quantity = #{updateParam.entity.quantity},
+            </if>
+            <if test="updateParam.entity.itemCategoryId != null">
+                item_category_id = #{updateParam.entity.itemCategoryId},
+            </if>
+            <if test="updateParam.updatedAt != null">
+                updated_at = #{updateParam.updatedAt}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete">
+        delete
+        from item
+        where id = #{id}
+    </delete>
+
+</mapper>
