@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import project.stockmanagement.common.basewrapper.ApiResult;
+import project.stockmanagement.common.error.exception.NotEnoughStockException;
 
 @RestControllerAdvice
 public class ErrorController {
@@ -15,6 +16,12 @@ public class ErrorController {
 	@ExceptionHandler({IllegalArgumentException.class, IllegalStateException.class})
 	public ApiResult<Void> handlerBadRequest(RuntimeException exception) {
 		return ApiResult.onFailure(exception.getLocalizedMessage());
+	}
+
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(NotEnoughStockException.class)
+	public ApiResult<Void> handlerNotEnoughStockRequest(NotEnoughStockException e) {
+		return ApiResult.onFailure(e.getLocalizedMessage());
 	}
 
 	/**

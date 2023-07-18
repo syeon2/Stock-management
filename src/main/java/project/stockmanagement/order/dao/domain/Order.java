@@ -30,4 +30,14 @@ public class Order {
 			.employeeId(employeeId)
 			.build();
 	}
+
+	public Order toUpdateOrderWhenComplete(OrderStatus orderStatus) {
+		return Order.builder()
+			.id(this.id)
+			.orderStatus(orderStatus)
+			.totalCount(this.totalCount)
+			.centerId(this.centerId)
+			.employeeId(this.employeeId)
+			.build();
+	}
 }

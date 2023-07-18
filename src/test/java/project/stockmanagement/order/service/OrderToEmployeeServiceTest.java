@@ -2,6 +2,7 @@ package project.stockmanagement.order.service;
 
 import static org.assertj.core.api.Assertions.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -10,10 +11,14 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ActiveProfiles;
 
+import project.stockmanagement.common.config.redis.RedisItemStockRepository;
+import project.stockmanagement.employee.dao.EmployeeRepository;
+import project.stockmanagement.employee.dao.domain.Employee;
+import project.stockmanagement.employee.dao.domain.EmployeeStatus;
+import project.stockmanagement.item.dao.ItemRepository;
 import project.stockmanagement.order.dao.OrderDetailRepository;
 import project.stockmanagement.order.dao.OrderRepository;
 import project.stockmanagement.order.dao.domain.Order;
@@ -35,7 +40,13 @@ class OrderToEmployeeServiceTest {
 	private OrderDetailRepository orderDetailRepository;
 
 	@Autowired
-	private RedisTemplate<String, String> redisOrderLockTemplate;
+	private ItemRepository itemRepository;
+
+	@Autowired
+	private EmployeeRepository employeeRepository;
+
+	@Autowired
+	private RedisItemStockRepository redisItemStockRepository;
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -141,6 +152,51 @@ class OrderToEmployeeServiceTest {
 		assertThat(findOrder2)
 			.extracting("id", "orderStatus", "totalCount", "centerId", "employeeId")
 			.contains(2L, OrderStatus.PROCESS, 13, 1, 2L);
+	}
+
+	@Test
+	@DisplayName("주문을 완료합니다.")
+	void completeOrder() throws InterruptedException {
+		// given
+		Order order = createOrder(OrderStatus.WAITING, 5, 1, null);
+		orderRepository.save(order);
+
+		OrderDetail orderDetail1 = createOrderDetail("itemA", 5, 1L, 1L);
+		orderDetailRepository.save(orderDetail1);
+
+		Order order2 = createOrder(OrderStatus.WAITING, 10, 1, null);
+		orderRepository.save(order2);
+
+		OrderDetail orderDetail2 = createOrderDetail("itemA", 20, 2L, 1L);
+		orderDetailRepository.save(orderDetail2);
+
+		Employee employee = Employee.builder()
+			.phone("0000000000")
+			.name("memberA")
+			.employeeStatus(EmployeeStatus.WORKING)
+			.centerId(1)
+			.workingDay(LocalDate.now())
+			.build();
+
+		redisItemStockRepository.clearItemStock();
+		redisItemStockRepository.setItemStock(1L, 100);
+		redisItemStockRepository.setItemStock(2L, 100);
+
+		employeeRepository.save(employee);
+
+		// when
+		Thread thread1 = new Thread(() -> orderToEmployeeService.completeOrder(1L, 1L));
+		Thread thread2 = new Thread(() -> orderToEmployeeService.completeOrder(2L, 1L));
+
+		thread1.start();
+		thread2.start();
+
+		thread1.join();
+		thread2.join();
+
+		// then
+		Long itemStock = redisItemStockRepository.getItemStock(1L);
+		assertThat(itemStock).isEqualTo(75);
 	}
 
 	private Order createOrder(OrderStatus orderStatus, Integer totalCount, Integer centerId, Long employeeId) {

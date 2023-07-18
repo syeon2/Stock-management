@@ -39,14 +39,14 @@ public class Employee {
 			.build();
 	}
 
-	public Employee toUpdateEntity(Employee updateEmployee) {
+	public Employee increaseItemPackingCount() {
 		return Employee.builder()
-			.name(updateEmployee.name)
-			.phone(updateEmployee.phone)
-			.centerId(updateEmployee.centerId)
-			.workingDay(updateEmployee.workingDay)
-			.employeeStatus(updateEmployee.employeeStatus)
-			.itemPackagingCount(updateEmployee.itemPackagingCount)
+			.name(this.name)
+			.phone(this.phone)
+			.centerId(this.centerId)
+			.workingDay(this.workingDay)
+			.employeeStatus(this.employeeStatus)
+			.itemPackagingCount(this.itemPackagingCount + 1)
 			.build();
 	}
 }

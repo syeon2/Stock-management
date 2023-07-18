@@ -23,12 +23,6 @@ public class OrderToCenterService {
 	private final OrderRepository orderRepository;
 	private final OrderDetailRepository orderDetailRepository;
 
-	// TODO:: 성능 분석을 위해 단계별로 적용해볼 예정입니다.
-
-	/**
-	 * 1. 모든 처리를 단순한 하나의 트랜젝션으로 처리해보기
-	 * 2. 하나의 트랜젝션으로 처리하되 주문 생성은 동기적으로 처리하고 (id값을 받아야서 주문 상세 내역에 추가해야하기 때문) 나머지 상세 내역은 비동기로 처리하기
-	 */
 	@Transactional
 	public Long createOrder(OrderCreateServiceRequest request) {
 		Long orderId = saveOrderEntityToDB(request);
@@ -43,8 +37,6 @@ public class OrderToCenterService {
 
 		return combineOrderAndOrderDetailsToOrderResponse(findOrder, findOrderDetails);
 	}
-
-	// TODO:: 재고 처리 기능 (Employee -> Orders Stock Count)
 
 	private Long saveOrderEntityToDB(OrderCreateServiceRequest request) {
 		Order order = request.toOrderDomain(OrderStatus.WAITING);

@@ -1,6 +1,5 @@
 package project.stockmanagement.common.config.redis;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 
 @Configuration
 @RequiredArgsConstructor
-public class RedisOrderLockConfig {
+public class RedisItemStockConfig {
 
 	@Value("${spring.redis.host}")
 	private String host;
@@ -23,16 +22,15 @@ public class RedisOrderLockConfig {
 	private Integer port;
 
 	@Bean
-	public RedisConnectionFactory redisOrderLockConnectionFactory() {
+	public RedisConnectionFactory redisItemStockConnectionFactory() {
 		return new LettuceConnectionFactory(host, port);
 	}
 
 	@Bean
-	@Qualifier("redisOrderLockTemplate")
-	public RedisTemplate<String, String> redisOrderLockTemplate(
-		RedisConnectionFactory redisOrderLockConnectionFactory) {
+	public RedisTemplate<String, String> redisItemStockTemplate(
+		RedisConnectionFactory redisItemStockConnectionFactory) {
 		RedisTemplate<String, String> redisTemplate = new StringRedisTemplate();
-		redisTemplate.setConnectionFactory(redisOrderLockConnectionFactory);
+		redisTemplate.setConnectionFactory(redisItemStockConnectionFactory);
 		redisTemplate.setKeySerializer(new StringRedisSerializer());
 		redisTemplate.setValueSerializer(new StringRedisSerializer());
 
