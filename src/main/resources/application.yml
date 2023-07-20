@@ -11,6 +11,12 @@ mybatis:
     map-underscore-to-camel-case: true
   mapper-locations: classpath:mapper/**/*.xml
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
 ---
 
 spring:
