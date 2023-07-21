@@ -28,7 +28,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/stockmanagement
     username: root
-    password: tndusdl11
+    password: password
 
 
 ---
@@ -42,7 +42,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/teststockmanagement
     username: root
-    password: tndusdl11
+    password: password
 
   sql:
     init:

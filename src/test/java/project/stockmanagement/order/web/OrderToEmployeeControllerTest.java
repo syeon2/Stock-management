@@ -75,7 +75,7 @@ class OrderToEmployeeControllerTest {
 
 		// when // then
 		mockMvc.perform(
-				post("/api/v1/employee_order")
+				post("/api/v1/employee-order")
 					.content(objectMapper.writeValueAsString(request))
 					.contentType(MediaType.APPLICATION_JSON)
 			)
