@@ -1,5 +1,6 @@
 package project.stockmanagement.order.dao.mybatis;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -33,11 +34,8 @@ public class MyBatisOrderRepository implements OrderRepository {
 	}
 
 	@Override
-	public Order findWaitingStatusOrder() {
-		Optional<Order> waitingStatusOrder = orderMapper.findWaitingStatusOrder();
-
-		return waitingStatusOrder.orElseThrow(
-			() -> new NoSuchElementException("대기 중인 주문 건이 존재하지 않습니다."));
+	public List<Long> findCompletedOrdersId() {
+		return orderMapper.findCompletedOrdersId();
 	}
 
 	@Override

@@ -33,4 +33,12 @@ public class OrderForCenterController {
 
 		return ApiResult.onSuccess(orderResponse);
 	}
+
+	@GetMapping("/api/v1/order/item-quantity/{itemId}")
+	public ApiResult<Long> checkCompletedItemQuantity(@PathVariable Long itemId) {
+		Long quantity = orderToCenterService.checkCompletedItemQuantity(itemId);
+
+		return ApiResult.onSuccess(quantity);
+	}
+
 }

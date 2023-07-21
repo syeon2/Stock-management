@@ -37,16 +37,24 @@ class OrderToEmployeeControllerTest {
 	@DisplayName("근로자에게 대기 상태인 주문 처리 건 1개에 대한 상품들을 할당합니다.")
 	void dispatchWaitedOrderToEmployee() throws Exception {
 		// given
-		OrderToEmployeeResponse request = OrderToEmployeeResponse.builder()
+		OrderToEmployeeRequest request = OrderToEmployeeRequest.builder()
+			.orderId(1L)
+			.employeeId(1L)
+			.build();
+
+		OrderToEmployeeResponse response = OrderToEmployeeResponse.builder()
 			.orderItems(List.of())
 			.build();
 
+		long orderId = 1;
 		long employeeId = 1;
-		when(orderToEmployeeService.dispatchWaitedOrderToEmployee(employeeId)).thenReturn(request);
+		when(orderToEmployeeService.dispatchWaitedOrderToEmployee(orderId, employeeId)).thenReturn(response);
 
 		// when  // then
 		mockMvc.perform(
-				post("/api/v1/employee/order/" + employeeId)
+				post("/api/v1/employee/order")
+					.content(objectMapper.writeValueAsString(request))
+					.contentType(MediaType.APPLICATION_JSON)
 			)
 			.andDo(print())
 			.andExpect(status().isOk())

@@ -1,6 +1,7 @@
 package project.stockmanagement.order.service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -36,6 +37,17 @@ public class OrderToCenterService {
 		List<OrderDetail> findOrderDetails = orderDetailRepository.findByOrderId(id);
 
 		return combineOrderAndOrderDetailsToOrderResponse(findOrder, findOrderDetails);
+	}
+
+	public Long checkCompletedItemQuantity(Long itemId) {
+		List<Long> completedOrdersId = orderRepository.findCompletedOrdersId();
+
+		return (long)completedOrdersId.stream()
+			.map(orderDetailRepository::findByOrderId)
+			.flatMap(details -> details.stream()
+				.filter(e -> Objects.equals(e.getItemId(), itemId)))
+			.mapToInt(OrderDetail::getCount)
+			.sum();
 	}
 
 	private Long saveOrderEntityToDB(OrderCreateServiceRequest request) {

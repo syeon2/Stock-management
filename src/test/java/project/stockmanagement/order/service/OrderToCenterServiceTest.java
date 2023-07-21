@@ -23,7 +23,7 @@ import project.stockmanagement.order.service.response.OrderResponse;
 
 @ActiveProfiles("test")
 @SpringBootTest
-class OrderForCenterServiceTest {
+class OrderToCenterServiceTest {
 
 	@Autowired
 	private OrderToCenterService orderToCenterService;
@@ -108,6 +108,51 @@ class OrderForCenterServiceTest {
 				tuple(1L, "itemA", 2),
 				tuple(2L, "itemB", 4)
 			);
+	}
+
+	@Test
+	@DisplayName("특정 상품의 주문 완료된 총 처리량 조회")
+	void checkCompletedItemQuantity() {
+		// given
+		Order order1 = Order.builder()
+			.orderStatus(OrderStatus.COMPLETE)
+			.totalCount(0)
+			.centerId(1)
+			.employeeId(1L)
+			.build();
+
+		Order order2 = Order.builder()
+			.orderStatus(OrderStatus.COMPLETE)
+			.totalCount(0)
+			.centerId(1)
+			.employeeId(1L)
+			.build();
+
+		orderRepository.save(order1);
+		orderRepository.save(order2);
+
+		OrderDetail orderDetail1 = OrderDetail.builder()
+			.name("itemA")
+			.count(4)
+			.orderId(1L)
+			.itemId(1L)
+			.build();
+
+		OrderDetail orderDetail2 = OrderDetail.builder()
+			.name("itemA")
+			.count(4)
+			.orderId(2L)
+			.itemId(1L)
+			.build();
+
+		orderDetailRepository.save(orderDetail1);
+		orderDetailRepository.save(orderDetail2);
+
+		// when
+		Long completedItemQuantity = orderToCenterService.checkCompletedItemQuantity(1L);
+
+		// then
+		assertThat(completedItemQuantity).isEqualTo(8L);
 	}
 
 	private OrderItem createOrderedItem(long id, String name, int count) {
