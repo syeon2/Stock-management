@@ -20,7 +20,7 @@ public class AttendanceService {
 	private final AttendanceRepository attendanceRepository;
 
 	public AttendanceResponse createAttendance(AttendanceCreateServiceRequest request) {
-		Attendance attendance = request.toDomain();
+		Attendance attendance = Attendance.createFromServiceRequest(request);
 		Attendance savedAttendance = attendanceRepository.save(attendance, TimeGenerator.currentDateTime());
 
 		return AttendanceResponse.of(savedAttendance);
