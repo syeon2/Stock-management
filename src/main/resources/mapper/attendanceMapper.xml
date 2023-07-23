@@ -17,7 +17,9 @@
     <select id="findByEmployeeId">
         select *
         from attendance
-        where employee_id = #{id}
+        where employee_id >= #{employeeId}
+        order by created_at desc
+        limit #{limit}
     </select>
 
     <select id="findByCenterId">

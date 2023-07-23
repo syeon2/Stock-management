@@ -14,6 +14,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -124,11 +126,16 @@ class AttendanceControllerTest {
 		// given
 		List<AttendanceResponse> attendances = List.of();
 		long employeeId = 1L;
-		when(attendanceService.findAttendance(employeeId)).thenReturn(attendances);
+		when(attendanceService.findAttendance(employeeId, 1)).thenReturn(attendances);
+
+		MultiValueMap<String, String> param = new LinkedMultiValueMap<>();
+		param.add("employeeId", String.valueOf(employeeId));
+		param.add("page", String.valueOf(1));
 
 		// when  // then
 		mockMvc.perform(
-				get("/api/v1/attendance/employee/" + employeeId)
+				get("/api/v1/attendance")
+					.queryParams(param)
 			)
 			.andDo(print())
 			.andExpect(status().isOk())
@@ -146,7 +153,7 @@ class AttendanceControllerTest {
 
 		// when  // then
 		mockMvc.perform(
-				get("/api/v1/attendance/employee/" + centerId)
+				get("/api/v1/attendance/center/" + centerId)
 			)
 			.andDo(print())
 			.andExpect(status().isOk())

@@ -15,7 +15,7 @@ public interface AttendanceMapper {
 
 	Optional<Attendance> findById(Long id);
 
-	List<Attendance> findByEmployeeId(Long id);
+	List<Attendance> findByEmployeeId(@Param("employeeId") Long employeeId, @Param("limit") Integer limit);
 
 	List<Attendance> findByCenterId(Integer id);
 

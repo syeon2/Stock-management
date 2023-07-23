@@ -26,8 +26,8 @@ public class AttendanceService {
 		return AttendanceResponse.of(savedAttendance);
 	}
 
-	public List<AttendanceResponse> findAttendance(Long employeeId) {
-		List<Attendance> attendances = attendanceRepository.findByEmployeeId(employeeId);
+	public List<AttendanceResponse> findAttendance(Long employeeId, Integer page) {
+		List<Attendance> attendances = attendanceRepository.findByEmployeeId(employeeId, page);
 
 		return attendances.stream()
 			.map(AttendanceResponse::of)
