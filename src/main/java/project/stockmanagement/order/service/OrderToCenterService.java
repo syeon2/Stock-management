@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
+import project.stockmanagement.common.config.redis.RedisItemStockRepository;
 import project.stockmanagement.order.dao.OrderDetailRepository;
 import project.stockmanagement.order.dao.OrderRepository;
 import project.stockmanagement.order.dao.domain.Order;
@@ -21,6 +22,7 @@ public class OrderToCenterService {
 
 	private final OrderRepository orderRepository;
 	private final OrderDetailRepository orderDetailRepository;
+	private final RedisItemStockRepository redisItemStockRepository;
 
 	@Transactional
 	public Long createOrder(OrderCreateServiceRequest request) {
@@ -46,6 +48,12 @@ public class OrderToCenterService {
 				.filter(e -> Objects.equals(e.getItemId(), itemId)))
 			.mapToInt(OrderDetail::getCount)
 			.sum();
+	}
+
+	public Long setItemStock(Long itemId, Integer stock) {
+		redisItemStockRepository.setItemStock(itemId, stock);
+
+		return itemId;
 	}
 
 	private Long saveOrderEntityToDB(OrderCreateServiceRequest request) {

@@ -30,7 +30,7 @@ public class MyBatisItemCategoryRepository implements ItemCategoryRepository {
 		Optional<ItemCategory> findItemCategoryOptional = itemCategoryMapper.findById(id);
 
 		return findItemCategoryOptional.orElseThrow(
-			() -> new NoSuchElementException("hello"));
+			() -> new NoSuchElementException("상품 카테고리가 존재하지 않습니다."));
 	}
 
 	@Override

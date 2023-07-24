@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.*;
 
 import java.util.List;
 
-import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +30,8 @@ class ItemCategoryServiceTest {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	@AfterEach
-	void after() {
+	@BeforeEach
+	void before() {
 		jdbcTemplate.execute("delete from item_category");
 		jdbcTemplate.execute("alter table item_category auto_increment = 1");
 	}
