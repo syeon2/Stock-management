@@ -54,7 +54,7 @@ public class OrderToCenterService {
 	}
 
 	private void saveOrderDetailsToDB(OrderCreateServiceRequest request, Long orderId) {
-		List<OrderDetail> orderDetails = request.toOrderDetails(orderId);
+		List<OrderDetail> orderDetails = OrderDetail.createFromServiceRequest(request.getOrderedItems(), orderId);
 		orderDetails.forEach(orderDetailRepository::save);
 	}
 }

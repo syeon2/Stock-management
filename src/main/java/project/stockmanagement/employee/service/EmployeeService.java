@@ -20,7 +20,7 @@ public class EmployeeService {
 	private final EmployeeRepository employeeRepository;
 
 	public EmployeeResponse createEmployee(EmployeeCreateServiceRequest request) {
-		Employee employee = request.toDomain();
+		Employee employee = Employee.createFromServiceRequest(request);
 		Employee savedEmployee = employeeRepository.save(employee);
 
 		return EmployeeResponse.of(savedEmployee);
@@ -40,7 +40,7 @@ public class EmployeeService {
 			.collect(Collectors.toList());
 	}
 
-	public Long updateEmployee(Long id, EmployeeUpdateServiceRequest updateEmployee) {
-		return employeeRepository.update(id, updateEmployee.toDomain());
+	public Long updateEmployee(Long id, EmployeeUpdateServiceRequest request) {
+		return employeeRepository.update(id, Employee.updateFromServiceRequest(request));
 	}
 }

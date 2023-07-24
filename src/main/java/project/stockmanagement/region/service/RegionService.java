@@ -18,7 +18,7 @@ public class RegionService {
 	private final RegionRepository regionRepository;
 
 	public RegionResponse createRegion(RegionCreateServiceRequest request) {
-		Region region = request.toDomain();
+		Region region = Region.createFromServiceRequest(request);
 		Region savedRegion = regionRepository.save(region);
 
 		return RegionResponse.of(savedRegion);

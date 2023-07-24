@@ -2,6 +2,7 @@ package project.stockmanagement.center.dao.domain;
 
 import lombok.Builder;
 import lombok.Getter;
+import project.stockmanagement.center.service.request.CenterCreateServiceRequest;
 
 @Getter
 public class Center {
@@ -20,5 +21,12 @@ public class Center {
 		this.id = id;
 		this.name = name;
 		this.regionId = regionId;
+	}
+
+	public static Center createFromServiceRequest(CenterCreateServiceRequest request) {
+		return Center.builder()
+			.name(request.getName())
+			.regionId(request.getRegionId())
+			.build();
 	}
 }

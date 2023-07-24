@@ -1,12 +1,10 @@
 package project.stockmanagement.order.service.request;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import lombok.Builder;
 import lombok.Getter;
 import project.stockmanagement.order.dao.domain.Order;
-import project.stockmanagement.order.dao.domain.OrderDetail;
 import project.stockmanagement.order.dao.domain.OrderStatus;
 
 @Getter
@@ -32,16 +30,5 @@ public class OrderCreateServiceRequest {
 			.totalCount(totalCount)
 			.centerId(this.centerId)
 			.build();
-	}
-
-	public List<OrderDetail> toOrderDetails(Long orderId) {
-		return orderedItems.stream()
-			.map(item -> OrderDetail.builder()
-				.name(item.getName())
-				.count(item.getCount())
-				.orderId(orderId)
-				.itemId(item.getId())
-				.build()
-			).collect(Collectors.toList());
 	}
 }
