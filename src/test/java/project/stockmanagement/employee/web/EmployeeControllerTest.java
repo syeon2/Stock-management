@@ -78,7 +78,7 @@ class EmployeeControllerTest {
 			)
 			.andDo(print())
 			.andExpect(status().isBadRequest())
-			.andExpect(jsonPath("$.data").isEmpty())
+			.andExpect(jsonPath("$.data").doesNotExist())
 			.andExpect(jsonPath("$.message").value("근로자 이름은 공백을 허용하지 않습니다."));
 	}
 
@@ -102,7 +102,7 @@ class EmployeeControllerTest {
 			)
 			.andDo(print())
 			.andExpect(status().isBadRequest())
-			.andExpect(jsonPath("$.data").isEmpty())
+			.andExpect(jsonPath("$.data").doesNotExist())
 			.andExpect(jsonPath("$.message").value("10 ~ 11자리의 숫자만 입력 가능합니다."));
 	}
 
@@ -125,7 +125,7 @@ class EmployeeControllerTest {
 			)
 			.andDo(print())
 			.andExpect(status().isBadRequest())
-			.andExpect(jsonPath("$.data").isEmpty())
+			.andExpect(jsonPath("$.data").doesNotExist())
 			.andExpect(jsonPath("$.message").value("센터 아이디는 필수 입니다."));
 	}
 
@@ -149,7 +149,7 @@ class EmployeeControllerTest {
 			)
 			.andDo(print())
 			.andExpect(status().isBadRequest())
-			.andExpect(jsonPath("$.data").isEmpty())
+			.andExpect(jsonPath("$.data").doesNotExist())
 			.andExpect(jsonPath("$.message").value("연도는 1950 - 2100까지 입력 가능합니다."));
 	}
 
@@ -173,7 +173,7 @@ class EmployeeControllerTest {
 			)
 			.andDo(print())
 			.andExpect(status().isBadRequest())
-			.andExpect(jsonPath("$.data").isEmpty())
+			.andExpect(jsonPath("$.data").doesNotExist())
 			.andExpect(jsonPath("$.message").value("월은 1 - 12까지 입력 가능합니다."));
 	}
 
@@ -197,7 +197,7 @@ class EmployeeControllerTest {
 			)
 			.andDo(print())
 			.andExpect(status().isBadRequest())
-			.andExpect(jsonPath("$.data").isEmpty())
+			.andExpect(jsonPath("$.data").doesNotExist())
 			.andExpect(jsonPath("$.message").value("일은 1 - 31까지 입력 가능합니다."));
 	}
 
@@ -225,7 +225,7 @@ class EmployeeControllerTest {
 			.andDo(print())
 			.andExpect(status().isOk())
 			.andExpect(jsonPath("$.data.id").value(memberId))
-			.andExpect(jsonPath("$.message").isEmpty());
+			.andExpect(jsonPath("$.message").doesNotExist());
 	}
 
 	@Test
@@ -243,6 +243,6 @@ class EmployeeControllerTest {
 			.andDo(print())
 			.andExpect(status().isOk())
 			.andExpect(jsonPath("$.data").isArray())
-			.andExpect(jsonPath("$.message").isEmpty());
+			.andExpect(jsonPath("$.message").doesNotExist());
 	}
 }
