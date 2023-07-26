@@ -19,7 +19,7 @@ public class ItemService {
 	private final ItemRepository itemRepository;
 
 	public ItemResponse createItem(ItemCreateServiceRequest request) {
-		Item item = request.toDomain(0);
+		Item item = Item.createFromServiceRequest(request, 0);
 		Item savedItem = itemRepository.save(item);
 
 		return ItemResponse.of(savedItem);
@@ -40,7 +40,7 @@ public class ItemService {
 	}
 
 	public Long changeItemInfo(Long id, ItemUpdateServiceRequest request) {
-		Item item = request.toDomain();
+		Item item = Item.updateFromServiceRequest(request);
 
 		return itemRepository.update(id, item);
 	}

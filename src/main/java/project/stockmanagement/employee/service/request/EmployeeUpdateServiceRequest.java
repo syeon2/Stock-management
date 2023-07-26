@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import project.stockmanagement.employee.dao.domain.Employee;
 import project.stockmanagement.employee.dao.domain.EmployeeStatus;
 
 @Getter
@@ -28,16 +27,5 @@ public class EmployeeUpdateServiceRequest {
 		this.itemPackagingCount = itemPackagingCount;
 		this.workingDay = workingDay;
 		this.centerId = centerId;
-	}
-
-	public Employee toDomain() {
-		return Employee.builder()
-			.name(this.name)
-			.phone(this.phone)
-			.employeeStatus(this.employeeStatus)
-			.itemPackagingCount(this.itemPackagingCount)
-			.workingDay(this.workingDay)
-			.centerId(this.centerId)
-			.build();
 	}
 }

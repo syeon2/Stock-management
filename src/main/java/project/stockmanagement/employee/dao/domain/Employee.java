@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 import lombok.Builder;
 import lombok.Getter;
+import project.stockmanagement.employee.service.request.EmployeeCreateServiceRequest;
+import project.stockmanagement.employee.service.request.EmployeeUpdateServiceRequest;
 
 @Getter
 public class Employee {
@@ -39,14 +41,34 @@ public class Employee {
 			.build();
 	}
 
-	public Employee toUpdateEntity(Employee updateEmployee) {
+	public Employee increaseItemPackingCount() {
 		return Employee.builder()
-			.name(updateEmployee.name)
-			.phone(updateEmployee.phone)
-			.centerId(updateEmployee.centerId)
-			.workingDay(updateEmployee.workingDay)
-			.employeeStatus(updateEmployee.employeeStatus)
-			.itemPackagingCount(updateEmployee.itemPackagingCount)
+			.name(this.name)
+			.phone(this.phone)
+			.centerId(this.centerId)
+			.workingDay(this.workingDay)
+			.employeeStatus(this.employeeStatus)
+			.itemPackagingCount(this.itemPackagingCount + 1)
+			.build();
+	}
+
+	public static Employee createFromServiceRequest(EmployeeCreateServiceRequest request) {
+		return Employee.builder()
+			.name(request.getName())
+			.phone(request.getPhone())
+			.workingDay(request.getWorkingDay())
+			.centerId(request.getCenterId())
+			.build();
+	}
+
+	public static Employee updateFromServiceRequest(EmployeeUpdateServiceRequest request) {
+		return Employee.builder()
+			.name(request.getName())
+			.phone(request.getPhone())
+			.employeeStatus(request.getEmployeeStatus())
+			.itemPackagingCount(request.getItemPackagingCount())
+			.workingDay(request.getWorkingDay())
+			.centerId(request.getCenterId())
 			.build();
 	}
 }

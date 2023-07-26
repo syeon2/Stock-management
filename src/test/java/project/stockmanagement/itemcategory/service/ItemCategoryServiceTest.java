@@ -19,7 +19,7 @@ import project.stockmanagement.itemcategory.service.response.ItemCategoryRespons
 
 @ActiveProfiles("test")
 @SpringBootTest
-class wItemCategoryServiceTest {
+class ItemCategoryServiceTest {
 
 	@Autowired
 	private ItemCategoryService itemCategoryService;

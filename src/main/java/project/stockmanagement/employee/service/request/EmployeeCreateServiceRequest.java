@@ -4,7 +4,6 @@ import java.time.LocalDate;
 
 import lombok.Builder;
 import lombok.Getter;
-import project.stockmanagement.employee.dao.domain.Employee;
 
 @Getter
 public class EmployeeCreateServiceRequest {
@@ -20,14 +19,5 @@ public class EmployeeCreateServiceRequest {
 		this.phone = phone;
 		this.workingDay = workingDay;
 		this.centerId = centerId;
-	}
-
-	public Employee toDomain() {
-		return Employee.builder()
-			.name(this.name)
-			.phone(this.phone)
-			.workingDay(this.workingDay)
-			.centerId(this.centerId)
-			.build();
 	}
 }

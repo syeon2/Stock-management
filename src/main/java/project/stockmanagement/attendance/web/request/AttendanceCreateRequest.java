@@ -4,20 +4,22 @@ import javax.validation.constraints.NotNull;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import project.stockmanagement.attendance.dao.domain.WorkStatus;
 import project.stockmanagement.attendance.service.request.AttendanceCreateServiceRequest;
 
 @Getter
+@NoArgsConstructor
 public class AttendanceCreateRequest {
 
 	@NotNull(message = "근무 형태는 필수 값 입니다.")
-	private final WorkStatus workStatus;
+	private WorkStatus workStatus;
 
 	@NotNull(message = "근로자 아이디는 필수 값 입니다.")
-	private final Long employeeId;
+	private Long employeeId;
 
 	@NotNull(message = "센터 아이디는 필수 값 입니다.")
-	private final Integer centerId;
+	private Integer centerId;
 
 	@Builder
 	private AttendanceCreateRequest(WorkStatus workStatus, Long employeeId, Integer centerId) {

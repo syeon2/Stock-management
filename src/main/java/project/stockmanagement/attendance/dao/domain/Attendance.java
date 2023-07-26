@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 
 import lombok.Builder;
 import lombok.Getter;
+import project.stockmanagement.attendance.service.request.AttendanceCreateServiceRequest;
 import project.stockmanagement.common.generator.TimeGenerator;
 
 @Getter
@@ -56,6 +57,14 @@ public class Attendance {
 			.employeeId(this.employeeId)
 			.createdAt(this.createdAt)
 			.updatedAt(TimeGenerator.currentDateTime())
+			.build();
+	}
+
+	public static Attendance createFromServiceRequest(AttendanceCreateServiceRequest request) {
+		return Attendance.builder()
+			.workStatus(request.getWorkStatus())
+			.employeeId(request.getEmployeeId())
+			.centerId(request.getCenterId())
 			.build();
 	}
 }

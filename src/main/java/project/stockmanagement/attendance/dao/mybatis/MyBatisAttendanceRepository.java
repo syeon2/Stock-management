@@ -17,6 +17,8 @@ public class MyBatisAttendanceRepository implements AttendanceRepository {
 
 	private final AttendanceMapper attendanceMapper;
 
+	private final Integer PAGE_OFFSET = 10;
+
 	@Override
 	public Attendance save(Attendance attendance, Timestamp currentDateTime) {
 		Attendance createAttendance = Attendance.toCreateEntity(attendance, currentDateTime);
@@ -34,8 +36,8 @@ public class MyBatisAttendanceRepository implements AttendanceRepository {
 	}
 
 	@Override
-	public List<Attendance> findByEmployeeId(Long id) {
-		return attendanceMapper.findByEmployeeId(id);
+	public List<Attendance> findByEmployeeId(Long employeeId, Integer page) {
+		return attendanceMapper.findByEmployeeId(employeeId, page * PAGE_OFFSET);
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package project.stockmanagement.region.dao.domain;
 
 import lombok.Builder;
 import lombok.Getter;
+import project.stockmanagement.region.service.request.RegionCreateServiceRequest;
 
 @Getter
 public class Region {
@@ -17,5 +18,11 @@ public class Region {
 	public Region(Integer id, String name) {
 		this.id = id;
 		this.name = name;
+	}
+
+	public static Region createFromServiceRequest(RegionCreateServiceRequest request) {
+		return Region.builder()
+			.name(request.getName())
+			.build();
 	}
 }
