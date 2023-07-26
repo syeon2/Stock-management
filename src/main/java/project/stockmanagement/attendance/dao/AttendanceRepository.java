@@ -11,7 +11,7 @@ public interface AttendanceRepository {
 
 	Attendance findById(Long id);
 
-	List<Attendance> findByEmployeeId(Long id);
+	List<Attendance> findByEmployeeId(Long employeeId, Integer limit);
 
 	List<Attendance> findByCenterId(Integer id);
 

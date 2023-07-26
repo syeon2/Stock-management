@@ -18,7 +18,7 @@ public class ItemCategoryService {
 	private final ItemCategoryRepository itemCategoryRepository;
 
 	public ItemCategoryResponse createItemCategory(ItemCategoryCreateServiceRequest request) {
-		ItemCategory itemCategory = request.toDomain();
+		ItemCategory itemCategory = ItemCategory.createFromServiceRequest(request);
 		ItemCategory savedItemCategory = itemCategoryRepository.save(itemCategory);
 
 		return ItemCategoryResponse.of(savedItemCategory);

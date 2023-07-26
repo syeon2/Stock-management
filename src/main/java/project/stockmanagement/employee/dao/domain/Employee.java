@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 import lombok.Builder;
 import lombok.Getter;
+import project.stockmanagement.employee.service.request.EmployeeCreateServiceRequest;
+import project.stockmanagement.employee.service.request.EmployeeUpdateServiceRequest;
 
 @Getter
 public class Employee {
@@ -47,6 +49,26 @@ public class Employee {
 			.workingDay(this.workingDay)
 			.employeeStatus(this.employeeStatus)
 			.itemPackagingCount(this.itemPackagingCount + 1)
+			.build();
+	}
+
+	public static Employee createFromServiceRequest(EmployeeCreateServiceRequest request) {
+		return Employee.builder()
+			.name(request.getName())
+			.phone(request.getPhone())
+			.workingDay(request.getWorkingDay())
+			.centerId(request.getCenterId())
+			.build();
+	}
+
+	public static Employee updateFromServiceRequest(EmployeeUpdateServiceRequest request) {
+		return Employee.builder()
+			.name(request.getName())
+			.phone(request.getPhone())
+			.employeeStatus(request.getEmployeeStatus())
+			.itemPackagingCount(request.getItemPackagingCount())
+			.workingDay(request.getWorkingDay())
+			.centerId(request.getCenterId())
 			.build();
 	}
 }

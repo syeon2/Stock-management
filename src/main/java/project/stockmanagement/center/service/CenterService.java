@@ -18,7 +18,7 @@ public class CenterService {
 	private final CenterRepository centerRepository;
 
 	public CenterResponse createCenter(CenterCreateServiceRequest request) {
-		Center center = request.toDomain();
+		Center center = Center.createFromServiceRequest(request);
 		Center savedCenter = centerRepository.save(center);
 
 		return CenterResponse.of(savedCenter);

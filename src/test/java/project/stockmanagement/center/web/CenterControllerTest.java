@@ -69,7 +69,7 @@ class CenterControllerTest {
 			)
 			.andDo(print())
 			.andExpect(status().isBadRequest())
-			.andExpect(jsonPath("$.data").isEmpty())
+			.andExpect(jsonPath("$.data").doesNotExist())
 			.andExpect(jsonPath("$.message").value("물류 센터 이름은 공백을 허용하지 않습니다."));
 	}
 
@@ -90,7 +90,7 @@ class CenterControllerTest {
 			)
 			.andDo(print())
 			.andExpect(status().isBadRequest())
-			.andExpect(jsonPath("$.data").isEmpty())
+			.andExpect(jsonPath("$.data").doesNotExist())
 			.andExpect(jsonPath("$.message").value("물류 센터 지역 아이디는 필수 입니다."));
 	}
 
@@ -108,6 +108,6 @@ class CenterControllerTest {
 			.andDo(print())
 			.andExpect(status().isOk())
 			.andExpect(jsonPath("$.data").isArray())
-			.andExpect(jsonPath("$.message").isEmpty());
+			.andExpect(jsonPath("$.message").doesNotExist());
 	}
 }

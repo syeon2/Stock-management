@@ -20,14 +20,14 @@ public class AttendanceService {
 	private final AttendanceRepository attendanceRepository;
 
 	public AttendanceResponse createAttendance(AttendanceCreateServiceRequest request) {
-		Attendance attendance = request.toDomain();
+		Attendance attendance = Attendance.createFromServiceRequest(request);
 		Attendance savedAttendance = attendanceRepository.save(attendance, TimeGenerator.currentDateTime());
 
 		return AttendanceResponse.of(savedAttendance);
 	}
 
-	public List<AttendanceResponse> findAttendance(Long employeeId) {
-		List<Attendance> attendances = attendanceRepository.findByEmployeeId(employeeId);
+	public List<AttendanceResponse> findAttendance(Long employeeId, Integer page) {
+		List<Attendance> attendances = attendanceRepository.findByEmployeeId(employeeId, page);
 
 		return attendances.stream()
 			.map(AttendanceResponse::of)

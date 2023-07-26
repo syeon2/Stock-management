@@ -2,6 +2,7 @@ package project.stockmanagement.itemcategory.dao.domain;
 
 import lombok.Builder;
 import lombok.Getter;
+import project.stockmanagement.itemcategory.service.request.ItemCategoryCreateServiceRequest;
 
 @Getter
 public class ItemCategory {
@@ -20,5 +21,12 @@ public class ItemCategory {
 		this.id = id;
 		this.name = name;
 		this.centerId = centerId;
+	}
+
+	public static ItemCategory createFromServiceRequest(ItemCategoryCreateServiceRequest request) {
+		return ItemCategory.builder()
+			.name(request.getName())
+			.centerId(request.getCenterId())
+			.build();
 	}
 }

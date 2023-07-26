@@ -10,7 +10,6 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import lombok.RequiredArgsConstructor;
 
@@ -38,8 +37,6 @@ public class RedisItemStockConfig {
 		RedisConnectionFactory redisItemStockConnectionFactory) {
 		RedisTemplate<String, String> redisTemplate = new StringRedisTemplate();
 		redisTemplate.setConnectionFactory(redisItemStockConnectionFactory);
-		redisTemplate.setKeySerializer(new StringRedisSerializer());
-		redisTemplate.setValueSerializer(new StringRedisSerializer());
 
 		return redisTemplate;
 	}
