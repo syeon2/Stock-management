@@ -1,14 +1,19 @@
 package project.stockmanagement.order.service;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
+import project.stockmanagement.common.config.redis.RedisItemStockRepository;
 import project.stockmanagement.employee.dao.EmployeeRepository;
+import project.stockmanagement.item.dao.ItemRepository;
+import project.stockmanagement.itemcategory.dao.ItemCategoryRepository;
 import project.stockmanagement.order.dao.OrderDetailRepository;
 import project.stockmanagement.order.dao.OrderRepository;
 import project.stockmanagement.order.dao.domain.Order;
+import project.stockmanagement.order.dao.domain.OrderDetail;
 import project.stockmanagement.order.dao.domain.OrderStatus;
 import project.stockmanagement.order.service.response.OrderToEmployeeResponse;
 
@@ -19,12 +24,11 @@ public class OrderToEmployeeService {
 	private final OrderRepository orderRepository;
 	private final OrderDetailRepository orderDetailRepository;
 	private final EmployeeRepository employeeRepository;
+	private final ItemRepository itemRepository;
+	private final ItemCategoryRepository itemCategoryRepository;
+	private final RedisItemStockRepository redisItemStockRepository;
 
-	/**
-	 * 기존에는 서버에서 OrderStatus = Waiting 인 데이터를 조회하여 근로자에게 dispatch 하였습니다.
-	 * 하지만 기획상으로 근로자가 자신이 처리할 주문 아이디를 함께 요청하는데 큰 무리는 없기 때문에 근로자가 처리해야하는 orderId를 제공함으로써
-	 * 기존의 트랜잭션과 락을 사용하여 큰 부하의 요인이 되었던 메소드를 최적화 가능해졌습니다.
-	 */
+	// 수정된 기획대로 가져가기
 	public OrderToEmployeeResponse dispatchWaitedOrderToEmployee(Long orderId, Long employeeId) {
 		Order findOrder = orderRepository.findById(orderId);
 
@@ -34,15 +38,17 @@ public class OrderToEmployeeService {
 		return OrderToEmployeeResponse.of(orderId, orderDetailRepository.findByOrderId(orderId));
 	}
 
-	/**
-	 * 해당 로직은 전체적인 프로세스 수정에 의해 재고를 실시간으로 처리하지 않아도 되었습니다.
-	 * 해당 로직을 통해 주문 상태만 Complete 로 변경하고 특정 상품에 대한 재고 상황은 쿼리로 풀어내었습니다.
-	 */
+	// 보상 트랜잭션 적용
 	public Long completeOrder(Long orderId, Long employeeId) {
-		increaseItemPackingCount(employeeId);
+		// Redis 재고에서 먼저 에러 발생 시 뒤의 MySQL 에 쿼리 요청하는 작업에 접근하지 않습니다.
+		List<OrderDetail> findOrderDetails = orderDetailRepository.findByOrderId(orderId);
+
+		redisItemStockRepository.decreaseItemStock(findOrderDetails);
 
 		Order findOrder = orderRepository.findById(orderId);
 		orderRepository.update(orderId, findOrder.toUpdateOrderWhenComplete(OrderStatus.COMPLETE, employeeId));
+
+		increaseItemPackingCount(employeeId);
 
 		return orderId;
 	}

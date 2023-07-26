@@ -13,6 +13,7 @@ import project.stockmanagement.common.basewrapper.ApiResult;
 import project.stockmanagement.order.service.OrderToCenterService;
 import project.stockmanagement.order.service.response.OrderResponse;
 import project.stockmanagement.order.web.request.OrderCreateRequest;
+import project.stockmanagement.order.web.request.SetItemStockRequest;
 
 @RestController
 @RequiredArgsConstructor
@@ -41,4 +42,10 @@ public class OrderForCenterController {
 		return ApiResult.onSuccess(quantity);
 	}
 
+	@PostMapping("/api/v1/order/item-stock")
+	public ApiResult<Long> setItemStock(@Valid @RequestBody SetItemStockRequest request) {
+		Long updateId = orderToCenterService.setItemStock(request.getItemId(), request.getStock());
+
+		return ApiResult.onSuccess(updateId);
+	}
 }
