@@ -1,5 +1,7 @@
 package project.stockmanagement.order.dao;
 
+import java.util.List;
+
 import project.stockmanagement.order.dao.domain.Order;
 
 public interface OrderRepository {
@@ -8,7 +10,7 @@ public interface OrderRepository {
 
 	Order findById(Long id);
 
-	Order findWaitingStatusOrder();
+	List<Long> findCompletedOrdersId();
 
 	Long update(Long id, Order updateOrders);
 

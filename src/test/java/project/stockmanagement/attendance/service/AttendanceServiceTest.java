@@ -70,7 +70,7 @@ class AttendanceServiceTest {
 		attendanceRepository.save(attendance, currentDateTime);
 
 		// when
-		List<AttendanceResponse> findAttendance = attendanceService.findAttendance(employeeId);
+		List<AttendanceResponse> findAttendance = attendanceService.findAttendance(employeeId, 10);
 
 		// then
 		assertThat(findAttendance).hasSize(1)

@@ -31,13 +31,13 @@ public class Order {
 			.build();
 	}
 
-	public Order toUpdateOrderWhenComplete(OrderStatus orderStatus) {
+	public Order toUpdateOrderWhenComplete(OrderStatus orderStatus, Long employeeId) {
 		return Order.builder()
 			.id(this.id)
 			.orderStatus(orderStatus)
 			.totalCount(this.totalCount)
 			.centerId(this.centerId)
-			.employeeId(this.employeeId)
+			.employeeId(employeeId)
 			.build();
 	}
 }

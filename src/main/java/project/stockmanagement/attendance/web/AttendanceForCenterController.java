@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import project.stockmanagement.attendance.service.AttendanceService;
 import project.stockmanagement.attendance.service.response.AttendanceResponse;
 import project.stockmanagement.attendance.web.request.AttendanceUpdateWorkStatusRequest;
+import project.stockmanagement.attendance.web.request.EmployeeAttendanceParam;
 import project.stockmanagement.common.basewrapper.ApiResult;
 
 @RestController
@@ -22,9 +23,10 @@ public class AttendanceForCenterController {
 
 	private final AttendanceService attendanceService;
 
-	@GetMapping("/api/v1/attendance/employee/{id}")
-	public ApiResult<List<AttendanceResponse>> getEmployeeAttendances(@PathVariable Long id) {
-		List<AttendanceResponse> attendance = attendanceService.findAttendance(id);
+	@GetMapping("/api/v1/attendance")
+	public ApiResult<List<AttendanceResponse>> getEmployeeAttendances(EmployeeAttendanceParam request) {
+		List<AttendanceResponse> attendance =
+			attendanceService.findAttendance(request.getEmployeeId(), request.getPage());
 
 		return ApiResult.onSuccess(attendance);
 	}

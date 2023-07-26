@@ -84,7 +84,7 @@ class MyBatisAttendanceRepositoryTest {
 		attendanceRepository.save(attendance3, currentDateTime);
 
 		// when
-		List<Attendance> attendances = attendanceRepository.findByEmployeeId(employeeId);
+		List<Attendance> attendances = attendanceRepository.findByEmployeeId(employeeId, 1);
 
 		// then
 		assertThat(attendances).hasSize(3)

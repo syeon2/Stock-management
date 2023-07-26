@@ -62,6 +62,23 @@ class MyBatisOrderRepositoryTest {
 	}
 
 	@Test
+	@DisplayName("완료된 주문 아이디들을 조회합니다.")
+	void findCompletedOrdersId() {
+		// given
+		Order order1 = createOrder(OrderStatus.COMPLETE, 0, 1, null);
+		Order order2 = createOrder(OrderStatus.COMPLETE, 0, 1, null);
+		Order order3 = createOrder(OrderStatus.WAITING, 0, 1, null);
+
+		// when
+		orderRepository.save(order1);
+		orderRepository.save(order2);
+		orderRepository.save(order3);
+
+		// then
+		assertThat(orderRepository.findCompletedOrdersId()).hasSize(2);
+	}
+
+	@Test
 	@DisplayName("대기 중인 주문 건 1개를 조회합니다.")
 	void findWaitingStatusOrder() {
 		// given
@@ -73,7 +90,7 @@ class MyBatisOrderRepositoryTest {
 		orderRepository.save(order3);
 
 		// when
-		Order waitingStatusOrder = orderRepository.findWaitingStatusOrder();
+		Order waitingStatusOrder = orderRepository.findById(1L);
 
 		// then
 		assertThat(waitingStatusOrder)
@@ -81,17 +98,18 @@ class MyBatisOrderRepositoryTest {
 			.contains(1L, OrderStatus.WAITING, 0, 1, null);
 	}
 
-	@Test
-	@DisplayName("대기 중인 주문이 없다면 예외를 던집니다.")
-	void findWaitingStatusOrderWithoutData() {
-		// given
-		Order order = createOrder(OrderStatus.PROCESS, 0, 1, null);
-		orderRepository.save(order);
-
-		// when  // then
-		assertThatThrownBy(() -> orderRepository.findWaitingStatusOrder())
-			.isInstanceOf(NoSuchElementException.class);
-	}
+	// 대기 중인 주문을 조회할 상황이 발생하지 않습니다.
+	// @Test
+	// @DisplayName("대기 중인 주문이 없다면 예외를 던집니다.")
+	// void findWaitingStatusOrderWithoutData() {
+	// 	// given
+	// 	Order order = createOrder(OrderStatus.PROCESS, 0, 1, null);
+	// 	orderRepository.save(order);
+	//
+	// 	// when  // then
+	// 	assertThatThrownBy(() -> orderRepository.findById(1L))
+	// 		.isInstanceOf(NoSuchElementException.class);
+	// }
 
 	@Test
 	@DisplayName("주문 내역을 수정합니다.")

@@ -1,7 +1,7 @@
 package project.stockmanagement.order.service;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Objects;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,7 +13,6 @@ import project.stockmanagement.order.dao.domain.Order;
 import project.stockmanagement.order.dao.domain.OrderDetail;
 import project.stockmanagement.order.dao.domain.OrderStatus;
 import project.stockmanagement.order.service.request.OrderCreateServiceRequest;
-import project.stockmanagement.order.service.request.OrderItem;
 import project.stockmanagement.order.service.response.OrderResponse;
 
 @Service
@@ -35,7 +34,18 @@ public class OrderToCenterService {
 		Order findOrder = orderRepository.findById(id);
 		List<OrderDetail> findOrderDetails = orderDetailRepository.findByOrderId(id);
 
-		return combineOrderAndOrderDetailsToOrderResponse(findOrder, findOrderDetails);
+		return OrderResponse.combineOrderAndOrderDetailsToOrderResponse(findOrder, findOrderDetails);
+	}
+
+	public Long checkCompletedItemQuantity(Long itemId) {
+		List<Long> completedOrdersId = orderRepository.findCompletedOrdersId();
+
+		return (long)completedOrdersId.stream()
+			.map(orderDetailRepository::findByOrderId)
+			.flatMap(details -> details.stream()
+				.filter(e -> Objects.equals(e.getItemId(), itemId)))
+			.mapToInt(OrderDetail::getCount)
+			.sum();
 	}
 
 	private Long saveOrderEntityToDB(OrderCreateServiceRequest request) {
@@ -44,29 +54,7 @@ public class OrderToCenterService {
 	}
 
 	private void saveOrderDetailsToDB(OrderCreateServiceRequest request, Long orderId) {
-		List<OrderDetail> orderDetails = request.toOrderDetails(orderId);
+		List<OrderDetail> orderDetails = OrderDetail.createFromServiceRequest(request.getOrderedItems(), orderId);
 		orderDetails.forEach(orderDetailRepository::save);
-	}
-
-	private OrderResponse combineOrderAndOrderDetailsToOrderResponse(Order order, List<OrderDetail> orderDetails) {
-		List<OrderItem> orderItems = orderDetails.stream()
-			.map(detail -> OrderItem.builder()
-				.id(detail.getId())
-				.name(detail.getName())
-				.count(detail.getCount())
-				.build()
-			).collect(Collectors.toList());
-
-		Integer totalCount = orderDetails.stream()
-			.mapToInt(OrderDetail::getCount)
-			.sum();
-
-		return OrderResponse.builder()
-			.orderStatus(order.getOrderStatus())
-			.totalCount(totalCount)
-			.centerId(order.getCenterId())
-			.employeeId(order.getEmployeeId())
-			.orderedItems(orderItems)
-			.build();
 	}
 }

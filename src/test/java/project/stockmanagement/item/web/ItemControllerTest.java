@@ -70,7 +70,7 @@ class ItemControllerTest {
 			)
 			.andDo(print())
 			.andExpect(status().isBadRequest())
-			.andExpect(jsonPath("$.data").isEmpty())
+			.andExpect(jsonPath("$.data").doesNotExist())
 			.andExpect(jsonPath("$.message").value("상품의 이름은 공백을 허용하지 않습니다."));
 	}
 
@@ -90,7 +90,7 @@ class ItemControllerTest {
 			)
 			.andDo(print())
 			.andExpect(status().isBadRequest())
-			.andExpect(jsonPath("$.data").isEmpty())
+			.andExpect(jsonPath("$.data").doesNotExist())
 			.andExpect(jsonPath("$.message").value("상품 카테고리 아이디는 필수 값입니다."));
 	}
 
@@ -115,7 +115,7 @@ class ItemControllerTest {
 			.andDo(print())
 			.andExpect(status().isOk())
 			.andExpect(jsonPath("$.data.id").value(itemId))
-			.andExpect(jsonPath("$.message").isEmpty());
+			.andExpect(jsonPath("$.message").doesNotExist());
 	}
 
 	@Test
@@ -133,7 +133,7 @@ class ItemControllerTest {
 			.andDo(print())
 			.andExpect(status().isOk())
 			.andExpect(jsonPath("$.data").isArray())
-			.andExpect(jsonPath("$.message").isEmpty());
+			.andExpect(jsonPath("$.message").doesNotExist());
 	}
 
 	@Test

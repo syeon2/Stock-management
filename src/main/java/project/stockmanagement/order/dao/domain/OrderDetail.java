@@ -1,7 +1,11 @@
 package project.stockmanagement.order.dao.domain;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import lombok.Builder;
 import lombok.Getter;
+import project.stockmanagement.order.service.request.OrderItem;
 
 @Getter
 public class OrderDetail {
@@ -19,5 +23,16 @@ public class OrderDetail {
 		this.count = count;
 		this.orderId = orderId;
 		this.itemId = itemId;
+	}
+
+	public static List<OrderDetail> createFromServiceRequest(List<OrderItem> orderedItems, Long orderId) {
+		return orderedItems.stream()
+			.map(item -> OrderDetail.builder()
+				.name(item.getName())
+				.count(item.getCount())
+				.orderId(orderId)
+				.itemId(item.getId())
+				.build()
+			).collect(Collectors.toList());
 	}
 }
