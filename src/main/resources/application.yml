@@ -17,6 +17,20 @@ management:
       exposure:
         include: "*"
 
+resilience4j:
+  bulkhead:
+    configs:
+      default:
+        max-concurrent-calls: 1
+        max-wait-duration: 0
+  thread-pool-bulkhead:
+    configs:
+      default:
+        max-thread-pool-size: 4
+        core-thread-pool-size: 3
+        queue-capacity: 50
+        keep-alive-duration: 10
+
 ---
 
 spring:

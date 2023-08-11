@@ -5,6 +5,7 @@ import java.util.concurrent.CompletableFuture;
 
 import org.springframework.stereotype.Service;
 
+import io.github.resilience4j.bulkhead.annotation.Bulkhead;
 import lombok.RequiredArgsConstructor;
 import project.stockmanagement.common.config.redis.RedisItemStockRepository;
 import project.stockmanagement.employee.dao.EmployeeRepository;
@@ -53,6 +54,7 @@ public class OrderToEmployeeService {
 		return orderId;
 	}
 
+	@Bulkhead(name = "increaseItemPackingCount", type = Bulkhead.Type.THREADPOOL)
 	private void increaseItemPackingCount(Long employeeId) {
 		CompletableFuture.supplyAsync(() -> employeeRepository.findById(employeeId))
 			.thenAccept(e -> employeeRepository.update(employeeId, e.increaseItemPackingCount()));
