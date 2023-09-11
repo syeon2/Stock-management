@@ -22,5 +22,4 @@ for Database : MySQL, Redis
 <img src="https://github.com/syeon2/Stock-management/assets/71717303/98b6d05a-3c30-41ed-ab53-64f63c394394" width="800" />
 
 ### 🌱 프로젝트 설계
-
-<img src="https://github.com/syeon2/Stock-management/assets/71717303/0488760e-9884-4a8c-a6bd-863e6bdf751d" width="800" />
+<img width="346" alt="Screenshot 2023-09-11 at 4 14 39 PM" src="https://github.com/syeon2/Stock-management/assets/71717303/cc5801cb-c2d9-467c-8107-8dd1433e159e" width="800">
