@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="project.stockmanagement.itemcategory.dao.mybatis.ItemCategoryMapper">
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="entity.id" keyColumn="id">
+        insert into item_category (name, center_id, created_at, updated_at)
+        values (#{entity.name}, #{entity.centerId}, #{createdAt}, #{updatedAt})
+    </insert>
+
+    <select id="findById">
+        select id, name, center_id
+        from item_category
+        where id = #{id}
+    </select>
+
+    <select id="findByCenterId">
+        select id, name, center_id
+        from item_category
+        where center_id = #{centerId}
+    </select>
+
+    <delete id="delete">
+        delete
+        from item_category
+        where id = #{id}
+    </delete>
+
+</mapper>
